@@ -1,0 +1,19 @@
+{
+  "name": "vendor/safephp",
+  "autoload": {
+    "psr-4": {
+      "SafePHP\\": "src/"
+    }
+  },
+  "description": "A cyber-security library for your php project",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Thomas Thony"
+    }
+  ],
+  "minimum-stability": "alpha",
+  "require": {
+    "php": ">=8.3.29"
+  }
+}
