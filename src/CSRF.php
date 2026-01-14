@@ -14,7 +14,7 @@ class CSRF {
 
     public static function verifyCSRF(){
         $CSRF_INPUT = $_POST["csrf_token"];
-        if(!isset($CSRF_INPUT) || $CSRF_INPUT == null || $CSRF_INPUT !== $_SESSION["csrf_token"]){
+        if(!isset($CSRF_INPUT) || $CSRF_INPUT == null || !(hash_equals($CSRF_INPUT, $_SESSION["csrf_token"]))){
             die("Invalid CSRF Token !");
         }
     }
