@@ -12,6 +12,7 @@
       "name": "Thomas Thony"
     }
   ],
+  "licence" : "GNU General Public License v3.0"
   "minimum-stability": "alpha",
   "require": {
     "php": ">=8.3.29"
