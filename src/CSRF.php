@@ -16,6 +16,8 @@ class CSRF {
         $CSRF_INPUT = $_POST["csrf_token"];
         if(!isset($CSRF_INPUT) || $CSRF_INPUT == null || !(hash_equals($CSRF_INPUT, $_SESSION["csrf_token"]))){
             die("Invalid CSRF Token !");
+        } else {
+            echo "CSRF valide !!";
         }
     }
 }

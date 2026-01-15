@@ -1,0 +1,29 @@
+@import url(./main.css);
+
+.creation-formulaire-container h2, form{
+    justify-self: center;
+}
+
+.creation-formulaire-container .input-item-container {
+    border-radius: 10px;
+    border: 2px solid black;
+    padding: 10px;
+    margin: 10px;
+}
+
+.creation-formulaire-container .button-creer-formulaire {
+    background-color: blue;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    color: white;
+    border: none;
+}
+
+.creation-formulaire-container .button-creer-formulaire:hover {
+    background-color: white;
+    color: blue;
+    transition: 0.25s ease;
+    cursor: pointer;
+    border: grey 1px solid;
+}

@@ -36,11 +36,11 @@ if (isset($_POST["testSanitize"])) {
     <h2>Utiliser les filtres sanitizes</h2>
     <form action="" method="POST">
 
-        <label for="checkboxInput">Nombre de checkbox</label>
+        <label for="testXSSInput">Entrée : </label>
         <input type="text" name="testSanitize" placeholder="Texte...">
 
         <button type="submit">
-            Créer le formulaire
+            Envoyer
         </button>
     </form>
 </body>

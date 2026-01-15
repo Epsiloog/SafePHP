@@ -6,6 +6,10 @@ use SafePHP\Form;
 
 session_start();
 
+if(isset($_POST["text_test"])){
+    CSRF::verifyCSRF();
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">

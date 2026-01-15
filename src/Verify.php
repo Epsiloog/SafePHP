@@ -3,31 +3,37 @@
 namespace SafePHP;
 
 class Verify {
-    public static function verify($Input, $TypeToHave) {
-        switch($TypeToHave) {
+    public static function verify($input, $typeToHave) {
+        switch($typeToHave) {
             case "bool":
-                return is_bool($Input) ? 1 : 0; //True = 1, fasle = 0
+                return is_bool($input) ? 1 : 0; //True = 1, fasle = 0
             
             case "integer":
-                return is_integer($Input) ? 1 : 0; //True = 1, fasle = 0
+                return is_integer($input) ? 1 : 0; //True = 1, fasle = 0
+
+            case "float":
+                return is_float($input) ? 1 : 0; //True = 1, fasle = 0
+
+            case "int":
+                return (is_int($input) || (is_numeric($input) && (int) $input == $input)) ? 1 : 0; //True = 1, fasle = 0
 
             case "double":
-                return is_double($Input) ? 1 :0; //True = 1, fasle = 0
+                return is_double($input) ? 1 :0; //True = 1, fasle = 0
 
             case "string":
-                return is_string($Input) ? 1 : 0; //True = 1, fasle = 0
+                return is_string($input) ? 1 : 0; //True = 1, fasle = 0
 
             case "array":
-                return is_array($Input) ? 1 : 0; //True = 1, fasle = 0
+                return is_array($input) ? 1 : 0; //True = 1, fasle = 0
 
             case "object":
-                return is_object($Input) ? 1 : 0; //True = 1, fasle = 0
+                return is_object($input) ? 1 : 0; //True = 1, fasle = 0
 
             case "resource":
-                return is_resource($Input) ? 1 : 0; //True = 1, fasle = 0
+                return is_resource($input) ? 1 : 0; //True = 1, fasle = 0
 
             case "NULL":
-                return is_null($Input) ? 1 : 0; //True = 1, fasle = 0
+                return is_null($input) ? 1 : 0; //True = 1, fasle = 0
 
             case "unknown type":
                 return;

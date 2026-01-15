@@ -3,20 +3,17 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use SafePHP\Verify;
 
-if(isset($_POST["test_verify"])) {
+if(isset($_POST["test_verify"]) && !empty($_POST["test_verify"])) {
     $Input = $_POST["test_verify"];
-    $TypeToHave = "integer";
-    var_dump(gettype($Input), $Input);
-    $Verify = Verify::verify($Input, $TypeToHave);
+    $Verify = Verify::verify($Input, "integer");
+    
     if($Verify === 0) {
-        echo "Pas le bon TYPE !!";
+        echo "Pas le bon TYPE : " . gettype($Input);
     } else {
         echo "Bon type !";
     }
-
-    if (is_numeric($Input) && (int) $Input == $Input) {
-        echo "C'est un nombre entier !";
-    }
+} else {
+    echo "Valeur non saisie ou vide !";
 }
 ?>
 
@@ -32,7 +29,7 @@ if(isset($_POST["test_verify"])) {
 <body>
     <h2>Test de typage</h2>
     <form action="" method="POST">
-        <label for="checkboxInput">Input</label>
+        <label for="input">Input</label>
         <input type="number" name="test_verify">
 
         <button type="submit">
