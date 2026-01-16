@@ -92,21 +92,27 @@ class Form {
             ],
         ];
 
-
-        foreach($_POST as $key => $value) {
-            if(empty($value) || !isset($InputConfig[$key])) continue;
-
+        foreach ($_POST as $key => $value) {
+            if (empty($value) || !isset($InputConfig[$key]))
+                continue;
             try {
                 $config = $InputConfig[$key];
                 $baseName = str_replace('number_', '', $key) . '_template';
-
                 for ($i = 0; $i < $config['count']; $i++) {
+                    echo sprintf(
+                        "<label for='%s_%d'> %s_%d </label>",
+                        htmlspecialchars($config['type'], ENT_QUOTES, 'UTF-8'),
+                        $i,
+                        htmlspecialchars($baseName, ENT_QUOTES, 'UTF-8'),
+                        $i
+                    );
                     echo sprintf(
                         "<input type='%s' name='%s_%d'>",
                         htmlspecialchars($config['type'], ENT_QUOTES, 'UTF-8'),
                         htmlspecialchars($baseName, ENT_QUOTES, 'UTF-8'),
                         $i
                     );
+                    echo "<br>";
                 }
             } catch (Exception $e) {
                 echo $e->getMessage();

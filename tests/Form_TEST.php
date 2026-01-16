@@ -19,6 +19,7 @@ if (!session_start()) {
 </head>
 
 <body>
+    <!--Formulaire de création de formulaire-->
     <div class="creation-formulaire-container">
         <h2>Créer un formulaire</h2>
         <form action="" method="POST">
@@ -140,6 +141,7 @@ if (!session_start()) {
         </form>
     </div>
 
+    <!--Résultat-->
     <div class="formulaire-creer-container">
         <?php
         if (isset($_POST["creerForm"])) {
@@ -164,7 +166,6 @@ if (!session_start()) {
                 'week_sanitize' => Sanitize::sanitize($_POST["number_week"], "int"),
 
             ];
-
             Form::createForm(
                 $InputSanitize["checkbox_sanitize"],
                 $InputSanitize['color_sanitize'],
@@ -186,8 +187,8 @@ if (!session_start()) {
                 $InputSanitize['week_sanitize'],
             );
         }
+
         ?>
     </div>
 </body>
-
 </html>

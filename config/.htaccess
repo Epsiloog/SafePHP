@@ -1,0 +1,22 @@
+#Template générique de fichier de configuration Apache
+
+# Ne pas afficher les sous-dossiers
+Options -Indexes
+
+# Forcer le HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+<IfModule mod_headers.c>
+# Ajout du header HSTS uniquement en HTTPS (ne déclenche pas le HTTP)
+Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" env=HTTPS
+
+#Controle du cache
+Header set Cache-Control "max-age=3000, public"
+
+#Politique de référence
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+#Limiter les méthodes possibles en HTTP
+Header set Access-Control-Allow-Methods "GET, POST"
+</IfModule>

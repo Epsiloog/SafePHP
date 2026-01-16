@@ -1,5 +1,17 @@
 @import url(./main.css);
 
+/*Partie générateur de formulaire*/
+
+.creation-formulaire-container {
+    justify-self: center;
+    padding: 10px;
+    margin: 10px;
+    max-width: 1000px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 5px 5px 15px 5px #6B6B6B;
+}
+
 .creation-formulaire-container h2, form{
     justify-self: center;
 }
@@ -17,7 +29,7 @@
     margin: 10px;
     border-radius: 10px;
     color: white;
-    border: none;
+    border: grey 1px solid;
 }
 
 .creation-formulaire-container .button-creer-formulaire:hover {
@@ -26,4 +38,14 @@
     transition: 0.25s ease;
     cursor: pointer;
     border: grey 1px solid;
+}
+
+.formulaire-creer-container {
+    justify-self: center;
+    padding: 10px;
+    margin: 10px;
+    max-width: 1000px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 5px 5px 15px 5px #6B6B6B;
 }

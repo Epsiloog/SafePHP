@@ -12,6 +12,7 @@ if(isset($_POST["test_verify"]) && !empty($_POST["test_verify"])) {
     } else {
         echo "Bon type !";
     }
+
 } else {
     echo "Valeur non saisie ou vide !";
 }
@@ -29,10 +30,13 @@ if(isset($_POST["test_verify"]) && !empty($_POST["test_verify"])) {
 <body>
     <h2>Test de typage</h2>
     <form action="" method="POST">
-        <label for="input">Input</label>
-        <input type="number" name="test_verify">
+        <label for="input_int">Int Input</label>
+        <input type="number" name="test_verify_int">
+        
+        <label for="input_string">String Input</label>
+        <input type="text" name="test_verify_string">
 
-        <button type="submit">
+        <button type="submit" name="test_verify">
             Créer le formulaire
         </button>
     </form>

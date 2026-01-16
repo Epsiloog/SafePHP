@@ -21,3 +21,8 @@ Voici les fonctionnement disponibles :
     1. Verification des types des inputs HTML dans un formulaire.
     2. Verification CSRF
     3. Nettoyage des inputs HTML
+    4. Génération de formulaires avec des outils sécurisés 
+
+### Contribution
+
+Le projet SafePHP est en open source et libre de toute utilisation, que ce soit personnelle comme pédagogique. **Vous pouvez bien évidement contribuer activement au projet en faisant des fixs ou en apportant des features par exemple**.
