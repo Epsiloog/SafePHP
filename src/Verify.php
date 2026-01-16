@@ -53,6 +53,6 @@ class Verify {
     }
 
     public static function verifySignatureFile($File){
-        
+
     }
 }
