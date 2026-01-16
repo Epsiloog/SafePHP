@@ -3,7 +3,7 @@
 Librairie PHP pour implémenter des moyens de cybersécurité facilment ! 
 
 ## Outils requis
-PHP : Version 8.3.29 minimum
+PHP : Version 8.3.29 minimum \
 Serveur LAMP ou XAMP (Pas pour la librairie mais votre projet PHP en général)
 
 ### Utilisation
@@ -22,6 +22,8 @@ Voici les fonctionnement disponibles :
     2. Verification CSRF
     3. Nettoyage des inputs HTML
     4. Génération de formulaires avec des outils sécurisés 
+    5. Vérification des extensions ajoutées
+    6. Fichier .htaccess minimaliste
 
 ### Contribution
 

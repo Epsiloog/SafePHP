@@ -4,13 +4,13 @@ if (isset($_GET['action'])) {
         case "accueil":
             $content = "./Components/accueill.php";
             $title = "SafePHP | Accueil";
-            $ressourceCSS = "./Styles/accueil.css";
+            $ressourceCSS = "./styles/accueil.css";
             break;
 
         case "test_csrf":
             $content = "./tests/CSRF_TEST.php";
             $title = "SafePHP | Test CSRF";
-            $ressourceCSS = "";
+            $ressourceCSS = "./styles/CSRF_TEST.css";
             break;
 
         case "test_verify":
@@ -31,14 +31,26 @@ if (isset($_GET['action'])) {
             $ressourceCSS = "";
             break;
 
+        case "test_form":
+            $content = "./tests/Form_TEST.php";
+            $title = "SafePHP | Test Form";
+            $ressourceCSS = "./styles/Form_TEST.css";
+            break;
+
+        case "test_file_inclusion":
+            $content = "./tests/FileInclusion_TEST.php";
+            $title = "SafePHP | Test Form";
+            $ressourceCSS = "./styles/Form_TEST.css";
+            break;
+
         default:
             $content = "./Components/404.php";
             $title = "SafePHP | Page non trouvée !";
-            $ressourceCSS = "./Styles/404.css";
+            $ressourceCSS = "./styles/404.css";
             break;
     }
 } else {
     $content = "./Components/accueill.php";
     $title = "SafePHP | Accueil";
-    $ressourceCSS = "./Styles/accueil.css";
+    $ressourceCSS = "./styles/accueil.css";
 }

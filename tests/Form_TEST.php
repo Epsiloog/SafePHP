@@ -7,18 +7,6 @@ if (!session_start()) {
     session_start();
 }
 ?>
-
-<!DOCTYPE html>
-<html lang="fr">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles/Form_TEST.css">
-    <title>Test Form</title>
-</head>
-
-<body>
     <!--Formulaire de création de formulaire-->
     <div class="creation-formulaire-container">
         <h2>Créer un formulaire</h2>
@@ -190,5 +178,3 @@ if (!session_start()) {
 
         ?>
     </div>
-</body>
-</html>

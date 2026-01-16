@@ -10,8 +10,8 @@ require_once "./config/router.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles/main.css">
     <link rel="stylesheet" href="./styles/footer.css">
-    <link rel="stylesheet" href="<?php include_once $ressourceCSS; ?>">
-    <title>SafePHP | Accueil</title>
+    <link rel="stylesheet" href="<?php echo $ressourceCSS; ?>">
+    <title><?php echo $title; ?></title>
 </head>
 <header>
     <?php

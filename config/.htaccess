@@ -19,4 +19,31 @@ Header always set Referrer-Policy "strict-origin-when-cross-origin"
 
 #Limiter les méthodes possibles en HTTP
 Header set Access-Control-Allow-Methods "GET, POST"
+
+#Gestion des cookies
+Header edit Set-Cookie ^(PHPSESSID=.*)$ "$1; HttpOnly; Secure; SameSite=Strict"
+
+#Masquer l'affichage des entêtes
+ Header unset Composed-By
+ Header unset X-Powered-By
+ Header unset X-Spip-Cache
 </IfModule>
+
+<Files ".user.ini">
+    Require all denied
+    ErrorDocument 
+    401 "Accès non autorisé"
+</Files>
+
+<Files "php.ini">
+    Require all denied
+    ErrorDocument 
+    401 "Accès non autorisé"
+</Files>
+
+#Module générique 
+# <Files "you_file_name_.extension">
+#  Your access argument
+#  Type of Page
+#  Type of Error "Customised message "
+# </Files>

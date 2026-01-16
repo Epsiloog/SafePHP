@@ -1,7 +1,7 @@
 <?php
 
 namespace SafePHP;
-
+use SafePHP\FileInclusion;
 class Verify {
     public static function verify($input, $typeToHave) {
         switch($typeToHave) {
@@ -41,5 +41,18 @@ class Verify {
             default:
                 return "null";
         }
+    }
+    
+    public static function verifyExtension($File) {
+        $Extension = pathinfo($File, PATHINFO_EXTENSION);
+        if(in_array($Extension, FileInclusion::getImageFormatAviable())) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    public static function verifySignatureFile($File){
+        
     }
 }
