@@ -23,7 +23,8 @@ Voici les fonctionnement disponibles :
     3. Nettoyage des inputs HTML
     4. Génération de formulaires avec des outils sécurisés 
     5. Vérification des extensions ajoutées
-    6. Fichier .htaccess minimaliste
+    6. Vérification de la signature des fichiers
+    7. Fichier .htaccess minimaliste
 
 ### Contribution
 
