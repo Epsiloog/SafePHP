@@ -3,7 +3,7 @@
 Librairie PHP pour implémenter des moyens de cybersécurité facilment ! 
 
 ## Outils requis
-PHP : Version 8.3.29 minimum \
+PHP : Version 8.3.0 minimum \
 Serveur LAMP ou XAMP (Pas pour la librairie mais votre projet PHP en général)
 
 ### Utilisation
