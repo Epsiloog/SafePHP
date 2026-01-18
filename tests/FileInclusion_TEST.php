@@ -7,7 +7,7 @@ use SafePHP\Verify;
 
 if (isset($_POST["validate_file_inclusion"])) {
     if ($_FILES["a_file_inclusion"] != null) {
-        $VerifyExtension = Verify::verifyExtension($_FILES["a_file_inclusion"]["name"]);
+        $VerifyExtension = Verify::verifyExtensionImage($_FILES["a_file_inclusion"]["name"]);
         $Signature = FileInclusion::verifySignatureImage($_FILES["a_file_inclusion"]["tmp_name"]);
     }
 }
@@ -27,6 +27,8 @@ if (isset($_POST["validate_file_inclusion"])) {
     <?php
     if (isset($_POST["validate_file_inclusion"]) && ($_FILES["a_file_inclusion"] != null)) {
         $result = FileInclusion::renameFile($_FILES['a_file_inclusion']['tmp_name'],$_FILES['a_file_inclusion']['name']);
+        $Test = Verify::verifySignatureFile($result, "null");
+        echo $Test;
     }
     ?>
     <p>

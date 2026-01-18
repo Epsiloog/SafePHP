@@ -3,6 +3,10 @@
 namespace SafePHP;
 use SafePHP\FileInclusion;
 class Verify {
+    private array $DocumentsFile = ["pdf", "doc", "docx", "txt", "odt", "ppt", "pptx"];
+    private array $ImagesFile = ["png", "jpeg", "jpg", "gif"];
+    private array $VideosFile = ["mov", "mp4", "m4a"];
+
     public static function verify($input, $typeToHave) {
         switch($typeToHave) {
             case "bool":
@@ -43,7 +47,7 @@ class Verify {
         }
     }
     
-    public static function verifyExtension($File) {
+    public static function verifyExtensionImage($File) {
         $Extension = pathinfo($File, PATHINFO_EXTENSION);
         if(in_array($Extension, FileInclusion::getImageFormatAviable())) {
             return 1;
@@ -52,7 +56,7 @@ class Verify {
         }
     }
 
-    public static function verifySignatureFile($File){
-
+    public static function verifySignatureFile($File, $FileType){
+        return finfo_file(finfo_open(FILEINFO_MIME_TYPE), $File);
     }
 }

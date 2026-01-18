@@ -12,7 +12,7 @@ class Sanitize {
 
             'email' => filter_var(
                 trim($value),
-                FILTER_VALIDATE_EMAIL
+                FILTER_SANITIZE_EMAIL
             ),
 
             'int' => filter_var(
