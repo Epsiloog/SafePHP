@@ -40,3 +40,12 @@ if (isset($_POST["validate_file_inclusion"])) {
         ?>
     </p>
 </div>
+
+<form action="" method="POST" enctype="multipart/form-data">
+    <label for="extension_valides">Format attendu(s) : png, jpg, jpeg</label>
+    <br>
+    <input type="file" name="a_file_inclusion">
+    <button type="submit" name="validate_file_inclusion">
+        Inclure le fichier
+    </button>
+</form>
