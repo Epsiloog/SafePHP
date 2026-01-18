@@ -3,9 +3,25 @@
 namespace SafePHP;
 use SafePHP\FileInclusion;
 class Verify {
-    private array $DocumentsFile = ["pdf", "doc", "docx", "txt", "odt", "ppt", "pptx"];
-    private array $ImagesFile = ["png", "jpeg", "jpg", "gif"];
-    private array $VideosFile = ["mov", "mp4", "m4a"];
+    private static array $DocumentsFile = ["pdf", "doc", "docx", "txt", "odt", "ppt", "pptx"];
+    private static array $ImagesFile = ["png", "jpeg", "jpg", "gif"];
+    private static array $VideosFile = ["mov", "mp4", "m4a"];
+
+    public static function getTypeFileAviable($AType)  : array {
+        switch($AType) {
+            case "Documents":
+                return self::$DocumentsFile;
+
+            case "Images":
+                return self::$ImagesFile;
+
+            case "Videos":
+                return self::$VideosFile;
+
+            default:
+                return ["This type of file does not exist !"];
+        }
+    }
 
     public static function verify($input, $typeToHave) {
         switch($typeToHave) {

@@ -4,6 +4,7 @@ use PDO;
 use PDOStatement;
 use PDOException;
 
+//Utiliser le .env
 class Database {
     public static function connectDatabase($host, $dbname, $name, $password, $port) {
         try {

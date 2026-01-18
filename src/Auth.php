@@ -26,13 +26,11 @@ class Auth
                 if (password_verify($password, $unUtilisateur['mot_de_passe'])) {
                     session_start();
                     $_SESSION["Utilisateur"] = [
-                        "ID" => $unUtilisateur['idUtilisateur'],
-                        "Pseudo" => $unUtilisateur['pseudo'],
-                        "Adresse_Mail" => $unUtilisateur['adresse_mail'],
-                        "Montant" => $unUtilisateur['montantArgent'],
-                        "Trophees" => $unUtilisateur["trophees"],
+                        "ID" => $unUtilisateur['id'],
+                        "Pseudo" => $unUtilisateur['name'],
+                        "Adresse_Mail" => $unUtilisateur['email'],
                     ];
-                    header("Location: ../../../index.php?action=accueilUtilisateur");
+                    header("Location: ./index.php?action=accueilUtilisateur");
                     exit();
                 } else {
                     echo "Pseudo ou mot de passe incorrect";
@@ -62,7 +60,7 @@ class Auth
                     "Pseudo" => $name,
                     "Adresse_Mail" => $email,
                 ];
-                header("Location: ../../../index.php?action=accueilUtilisateur");
+                header("Location: ./index.php?action=accueilUtilisateur");
                 exit();
             } else {
                 echo "Erreur lors de l'inscription";
