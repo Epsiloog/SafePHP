@@ -7,34 +7,16 @@ class Verify {
     private static array $ImagesFile = ["png", "jpeg", "jpg", "gif"];
     private static array $VideosFile = ["mov", "mp4", "m4a"];
 
-    public static function getTypeFileAviable($AType) {
+    public static function getTypeFileAviable($AType) : array {
         switch($AType) {
             case "Documents":
-                echo "Formats de documents acceptés :<br>";
-                echo "<ul>";
-                foreach (self::$DocumentsFile as $Document) {
-                    echo "<li>" . $Document . "</li><br>";
-                }
-                echo "</ul>";
-                return;
+                return self::$DocumentsFile;
 
             case "Images":
-                echo "Formats d'image acceptés :<br>";
-                echo "<ul>";
-                foreach (self::$ImagesFile as $Image) {
-                    echo  "<li>" . $Image . "</li><br>";
-                }
-                echo "</ul>";
-                return;
+                return self::$ImagesFile;
 
             case "Videos":
-                echo "Formats de vidéos acceptés :<br>";
-                echo "<ul>";
-                foreach(self::$VideosFile as $Video) {
-                    echo "<li>" . $Video . "</li><br>";
-                }
-                echo "</ul>";
-                return;
+                return self::$VideosFile;
 
             default:
                 return ["This type of file does not exist !"];
@@ -83,20 +65,30 @@ class Verify {
     
     public static function verifyExtensionImage($File) {
         $Extension = pathinfo($File, PATHINFO_EXTENSION);
-        if(in_array($Extension, FileInclusion::getImageFormatAviable())) {
+        if(in_array($Extension, self::$ImagesFile)) {
             return 1;
         } else {
             return 0;
         }
     }
 
-    public static function verifySignatureFile($File, $FileType){
+    public static function verifySignatureFile($File, $FileType)
+    {
         $ListTypeFile = self::getTypeFileAviable($FileType);
-        $TypeOfFile = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $File);
-        if(is_array($TypeOfFile, $ListTypeFile)) {
-            return 1;
-        } else {
-            return 0;
+
+        // Vérifier si c'est un fichier uploadé
+        if (is_uploaded_file($File)) {
+            // Utiliser le chemin temporaire directement
+            $TypeOfFile = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $File);
+
+            // Vérifier si le type détecté est dans la liste autorisée
+            if (in_array($TypeOfFile, $ListTypeFile)) {
+                return true;
+            } else {
+                return false;
+            }
         }
+
+        return false;
     }
 }

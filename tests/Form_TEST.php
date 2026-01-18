@@ -7,10 +7,6 @@ use SafePHP\Verify;
 if (!session_start()) {
     session_start();
 }
-
-$ListeDocuments = Verify::getTypeFileAviable("Documents");
-$ListeImages = Verify::getTypeFileAviable("Images");
-$ListeVideos = Verify::getTypeFileAviable("Videos");
 ?>
     <!--Formulaire de création de formulaire-->
     <div class="creation-formulaire-container">
