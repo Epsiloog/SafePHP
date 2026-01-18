@@ -1,55 +1,76 @@
 <?php
-
 require_once __DIR__ . '/../vendor/autoload.php';
-
 use SafePHP\FileInclusion;
 use SafePHP\Verify;
+use SafePHP\Exceptions;
 
 //Section Image
 if (isset($_POST["validate_image_inclusion"])) {
-    if ($_FILES["an_image_inclusion"] != null) {
+    if ($_FILES["an_image_inclusion"] != null && $_FILES["an_image_inclusion"]["error"] === UPLOAD_ERR_OK) {
         $VerifyExtension = Verify::verifyExtensionImage($_FILES["an_image_inclusion"]["name"]);
-        $Signature = FileInclusion::verifySignatureImage($_FILES["an_image_inclusion"]["tmp_name"]);
+        if ($VerifyExtension === 1) {
+            $Signature = FileInclusion::verifySignatureImage($_FILES["an_image_inclusion"]["tmp_name"]);
+            if ($Signature === false) {
+                echo Exceptions::getErreurSignature() . " une image !</p>";
+            } else {
+                echo "Fichier inclus avec succès !";
+            }
+        } else {
+            echo Exceptions::getErreurExtension();
+        }
+    } else {
+        echo Exceptions::getErreurFichierVide();
     }
 }
 
-
 //Section Video
 if (isset($_POST["validate_video_inclusion"])) {
-    if($_FILES["a_video_inclusion"]) {
-        $Test = Verify::verifySignatureFile($_FILES["a_video_inclusion"]["name"], "Videos");
-        if ($Test === false) {
-            echo "Erreur : La signature de ce fichier ne correspond pas à celle attendue pour une vidéo!";
+    if ($_FILES["a_video_inclusion"] != null && $_FILES["a_video_inclusion"]["error"] === UPLOAD_ERR_OK) {
+        // CORRECTION: Passer tmp_name, puis name, puis le type
+        $Signature = Verify::verifySignatureFile(
+            $_FILES["a_video_inclusion"]["tmp_name"],
+            $_FILES["a_video_inclusion"]["name"],
+            "Videos"
+        );
+        if ($Signature === false) {
+            echo Exceptions::getErreurSignature() . " une vidéo !</p>";
         } else {
-            echo $Test;
+            echo "Fichier inclus avec succès !";
         }
+    } else {
+        echo Exceptions::getErreurFichierVide();
     }
 }
 
 //Section Fichier
 if (isset($_POST["validate_document_inclusion"])) {
-    if ($_FILES["a_document_inclusion"]) {
-        $Test = Verify::verifySignatureFile($_FILES["a_document_inclusion"]["name"], "Documents");
-        if ($Test === false) {
-            echo "Erreur : La signature de ce fichier ne correspond pas à celle attendue pour un document!";
+    if ($_FILES["a_document_inclusion"] != null && $_FILES["a_document_inclusion"]["error"] === UPLOAD_ERR_OK) {
+        // CORRECTION: Passer tmp_name, puis name, puis le type
+        $Signature = Verify::verifySignatureFile(
+            $_FILES["a_document_inclusion"]["tmp_name"],
+            $_FILES["a_document_inclusion"]["name"],
+            "Documents"
+        );
+        if ($Signature === false) {
+            echo Exceptions::getErreurSignature() . " un document !</p>";
         } else {
-            echo $Test;
+            echo "Fichier inclus avec succès !";
         }
+    } else {
+        echo Exceptions::getErreurFichierVide();
     }
 }
 ?>
-
 <div class="inclusion-container">
-    <form action="" method="POST" enctype="multipart/form-data"></form>
-    <label for="extension_valides">Format attendu(s) : png, jpeg, jpg, gif</label>
-    <br>
-    <input type="file" name="an_image_inclusion">
-    <button type="submit" name="validate_image_inclusion">
-        Inclure le fichier
-    </button>
+    <form action="" method="POST" enctype="multipart/form-data">
+        <label for="extension_valides">Format attendu(s) : png, jpeg, jpg, gif</label>
+        <br>
+        <input type="file" name="an_image_inclusion">
+        <button type="submit" name="validate_image_inclusion">
+            Inclure l'image
+        </button>
     </form>
 </div>
-
 <br>
 <div class="inclusion-container">
     <form action="" method="POST" enctype="multipart/form-data">
@@ -61,11 +82,10 @@ if (isset($_POST["validate_document_inclusion"])) {
         </button>
     </form>
 </div>
-
 <br>
 <div class="inclusion-container">
     <form action="" method="POST" enctype="multipart/form-data">
-        <label for="extension_valides">Format attendu(s) : png, jpg, jpeg</label>
+        <label for="extension_valides">Format attendu(s) : pdf, doc, docx, txt, odt, ppt, pptx</label>
         <br>
         <input type="file" name="a_document_inclusion">
         <button type="submit" name="validate_document_inclusion">

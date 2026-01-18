@@ -1,4 +1,4 @@
-# SafePHP (Version Alpha)
+# SafePHP (Version Alpha) ![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white) <img src="https://readme-icons.com/api/icons?i=shieldsdotio&size=64&perline=1" alt="Icons" />
 
 ## Sommaire
 
@@ -122,13 +122,10 @@ Sanitize::sanitize($Input, $TypeFiltre); //Les filtres disponibles sont : email,
 ?>
 ```
 
+Un exemple concret :
 ```php 
 <?php
 use SafePHP\Sanitize;
-
-if (!session_start()) {
-    session_start();
-}
 
 if (isset($_POST["testSanitize"])) {
     $FiltreText = Sanitize::sanitize($_POST["testSanitize"], "text");
