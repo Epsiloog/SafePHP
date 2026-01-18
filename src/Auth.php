@@ -27,7 +27,7 @@ class Auth
                     session_start();
                     $_SESSION["Utilisateur"] = [
                         "ID" => $unUtilisateur['id'],
-                        "Pseudo" => $unUtilisateur['name'],
+                        "Nom" => $unUtilisateur['name'],
                         "Adresse_Mail" => $unUtilisateur['email'],
                     ];
                     header("Location: ./index.php?action=accueilUtilisateur");
@@ -57,7 +57,7 @@ class Auth
 
                 $_SESSION["Utilisateur"] = [
                     "ID" => $idCompte,
-                    "Pseudo" => $name,
+                    "Nom" => $name,
                     "Adresse_Mail" => $email,
                 ];
                 header("Location: ./index.php?action=accueilUtilisateur");

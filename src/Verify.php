@@ -73,6 +73,12 @@ class Verify {
     }
 
     public static function verifySignatureFile($File, $FileType){
-        return finfo_file(finfo_open(FILEINFO_MIME_TYPE), $File);
+        $ListTypeFile = self::getTypeFileAviable($FileType);
+        $TypeOfFile = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $File);
+        if(is_array($TypeOfFile, $ListTypeFile)) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }

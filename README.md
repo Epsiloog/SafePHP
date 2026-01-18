@@ -1,4 +1,4 @@
-# SafePHP (Version Alpha)
+# SafePHP (Version Alpha) 
 
 ## Sommaire
 * [Sommaire](#sommaire)
@@ -69,8 +69,18 @@ Je vous remercie d'être indulgent sur la qualité de code, ce projet a pour but
 
 La classe Auth contient une fonction par défaut de connexion et d'inscription, le hash utilisé est celui par défaut de PHP (d'après la documentation PHP, c'est l'algorithme [BCRYPT](https://www.php.net/manual/fr/string.constants.php#constant.crypt-blowfish)).
 
-Il y'a également une gestion des sessions utilisateur .
+Il y'a également une gestion des sessions utilisateur, il y'a : 
+
+- Les fonctions **login** et **register** qui créent les sessions utilisateur.
+- La fonction **logout** qui détruit toutes les sessions créées.
 
 ### La classe CSRF
 
+La classe CSRF contient une fonction **createCSRF** qui crée un jeton CSRF, à ajouter impérativeur dans chacun de vos formulaires.
+Lorsque vos formulaires sont soumis, utilisez la fonction **verifyCSRF** pour confirmer la présence de votre jeton CSRF.
+
 ### La classe Verify
+
+La classe Verify va regarder plusieurs choses : 
+ - Vérifier le typage des entrées HMTL.
+ - Vérifier le type d'image et des fichiers (Leurs signatures).
