@@ -7,16 +7,34 @@ class Verify {
     private static array $ImagesFile = ["png", "jpeg", "jpg", "gif"];
     private static array $VideosFile = ["mov", "mp4", "m4a"];
 
-    public static function getTypeFileAviable($AType)  : array {
+    public static function getTypeFileAviable($AType) {
         switch($AType) {
             case "Documents":
-                return self::$DocumentsFile;
+                echo "Formats de documents acceptés :<br>";
+                echo "<ul>";
+                foreach (self::$DocumentsFile as $Document) {
+                    echo "<li>" . $Document . "</li><br>";
+                }
+                echo "</ul>";
+                return;
 
             case "Images":
-                return self::$ImagesFile;
+                echo "Formats d'image acceptés :<br>";
+                echo "<ul>";
+                foreach (self::$ImagesFile as $Image) {
+                    echo  "<li>" . $Image . "</li><br>";
+                }
+                echo "</ul>";
+                return;
 
             case "Videos":
-                return self::$VideosFile;
+                echo "Formats de vidéos acceptés :<br>";
+                echo "<ul>";
+                foreach(self::$VideosFile as $Video) {
+                    echo "<li>" . $Video . "</li><br>";
+                }
+                echo "</ul>";
+                return;
 
             default:
                 return ["This type of file does not exist !"];

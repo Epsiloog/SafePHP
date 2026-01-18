@@ -80,6 +80,14 @@ La classe CSRF contient une fonction **createCSRF** qui crée un jeton CSRF, à 
 Lorsque vos formulaires sont soumis, utilisez la fonction **verifyCSRF** pour confirmer la présence de votre jeton CSRF.
 
 ### La classe Verify
+La classe Verify possède trois listes d'extensions de fichiers disponibles, pour les documents, les images et les vidéos.
+Vous pouvez voir la liste pour chaque type de fichiers en faisaint : 
+
+```php
+<?php
+Verify::getTypeFileAviable($AType); //$AType: "Documents", "Images" ou "Videos"
+?>
+```
 
 La classe Verify va regarder plusieurs choses : 
  - Vérifier le typage des entrées HMTL.

@@ -2,10 +2,15 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 use SafePHP\Form;
 use SafePHP\Sanitize;
+use SafePHP\Verify;
 
 if (!session_start()) {
     session_start();
 }
+
+$ListeDocuments = Verify::getTypeFileAviable("Documents");
+$ListeImages = Verify::getTypeFileAviable("Images");
+$ListeVideos = Verify::getTypeFileAviable("Videos");
 ?>
     <!--Formulaire de création de formulaire-->
     <div class="creation-formulaire-container">
