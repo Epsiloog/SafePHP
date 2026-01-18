@@ -43,6 +43,12 @@ if (isset($_GET['action'])) {
             $ressourceCSS = "./styles/Form_TEST.css";
             break;
 
+        case "test_sri":
+            $content = "./tests/Test_SRI.php";
+            $title = "SafePHP | Test SRI";
+            $ressourceCSS = "./styles/Form_TEST.css";
+            break;
+
         default:
             $content = "./Components/404.php";
             $title = "SafePHP | Page non trouvée !";

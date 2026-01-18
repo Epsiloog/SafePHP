@@ -24,9 +24,6 @@ class FileInclusion {
             return false;
         }
     }
-    public static function recreateImage($Image) {
-
-    }
 
     public static function getImageFormatAviable() : array {
         return $AcceptPicturesFormat = ["png", "jpg", "jpeg", "svg"];
@@ -34,5 +31,9 @@ class FileInclusion {
 
     public static function verifySignatureImage($File){
         return exif_imagetype($File);
+    }
+
+    public static function recreateImage($File) {
+        
     }
 }

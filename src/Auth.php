@@ -9,7 +9,7 @@ class Auth
 {
     public static function login($name, $password)
     {
-        $connexion = Database::connectDatabase("3306", "dbname", "name", "password", "port");
+        $connexion = Database::connectDatabase();
         $stmt = $connexion->prepare("SELECT (name, password) FROM users WHERE name = :name");
         $stmt->bindValue(":name", $name, PDO::PARAM_STR);
         $inscription = $stmt->execute();
@@ -41,7 +41,7 @@ class Auth
     public static function register($name, $email, $password)
     {
         if (isset($email, $name, $password) && !empty($name) && !empty($email) && !empty($password)) {
-            $connexion = Database::connectDatabase("3306", "dbname", "name", "password", "port");
+            $connexion = Database::connectDatabase();
 
             $password_hash = password_hash($password, PASSWORD_DEFAULT);
             $stmt = $connexion->prepare("INSERT INTO users (name, email, password) VALUES (:name, :email, :password);");

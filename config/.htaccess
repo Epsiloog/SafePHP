@@ -20,7 +20,7 @@ Header always set Referrer-Policy "strict-origin-when-cross-origin"
 #Limiter les méthodes possibles en HTTP
 Header set Access-Control-Allow-Methods "GET, POST"
 
-#Gestion des cookies
+#Gestion des cookies (accsessible uniquement en HTTP => Pas accessible par les langages de script), le navigateur envoie uniquement le cookie lorsque la requête est de type même origine.
 Header edit Set-Cookie ^(PHPSESSID=.*)$ "$1; HttpOnly; Secure; SameSite=Strict"
 
 #Masquer l'affichage des entêtes

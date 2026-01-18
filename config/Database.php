@@ -3,7 +3,6 @@ namespace SafePHP;
 use PDO;
 use PDOException;
 use Dotenv\Dotenv;
-//Utiliser le .env
 class Database {
     public static function connectDatabase() {
         $dotenv = Dotenv::createImmutable(__DIR__);

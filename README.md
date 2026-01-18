@@ -12,9 +12,11 @@
   - [Contribution](#contribution)
 - [Avant toute chose](#avant-toute-chose)
 - [Les différentes classes](#les-différentes-classes)
+  - [AntiCommands](#la-classe-anticommands)
   - [Auth](#la-classe-auth)
   - [CSRF](#la-classe-csrf)
   - [Sanitize](#la-classe-sanitize)
+  - [SRI](#la-classe-sri)
   - [Verify](#la-classe-verify)
 
 ## Introduction
@@ -70,6 +72,8 @@ Ce projet a été fait par un étudiant en informatique, avec le moins d'utilisa
 Je vous remercie d'être indulgent sur la qualité de code, ce projet a pour but de faciliter des développeurs pour la cyber-sécurite.
 
 ## Les différentes classes
+
+### La classe AntiCommands
 
 ### La classe Auth
 
@@ -154,6 +158,25 @@ if (isset($_POST["testSanitize"])) {
     </button>
 </form>
 ```
+
+### La classe SRI
+
+Cette classe est l'une des plus simples à utiliser car il suffit d'une seule fonction à mettre pour chaque appel par ressources Javascript ou CSS.
+
+Pour ce faire, faites simplement : 
+```php
+<?php 
+use SafePHP\SRI;
+
+$CSSFile = "./styles/main.css";
+$JSFile = "./scripts/main.js";
+
+SRI::createSRI("css", $CSSFile); //css ou js, sinon null
+SRI::createSRI("js", $JSFile);
+?>
+```
+
+Vous pourrez vérifier le résultat depuis l'inspecteur d'élement.
 
 ### La classe Verify
 

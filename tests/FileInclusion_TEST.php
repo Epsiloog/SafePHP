@@ -4,6 +4,8 @@ use SafePHP\FileInclusion;
 use SafePHP\Verify;
 use SafePHP\Exceptions;
 
+$Succes = "Fichier inclus avec succès !";
+
 //Section Image
 if (isset($_POST["validate_image_inclusion"])) {
     if ($_FILES["an_image_inclusion"] != null && $_FILES["an_image_inclusion"]["error"] === UPLOAD_ERR_OK) {
@@ -13,7 +15,7 @@ if (isset($_POST["validate_image_inclusion"])) {
             if ($Signature === false) {
                 echo Exceptions::getErreurSignature() . " une image !</p>";
             } else {
-                echo "Fichier inclus avec succès !";
+                echo $Succes;
             }
         } else {
             echo Exceptions::getErreurExtension();
@@ -26,7 +28,6 @@ if (isset($_POST["validate_image_inclusion"])) {
 //Section Video
 if (isset($_POST["validate_video_inclusion"])) {
     if ($_FILES["a_video_inclusion"] != null && $_FILES["a_video_inclusion"]["error"] === UPLOAD_ERR_OK) {
-        // CORRECTION: Passer tmp_name, puis name, puis le type
         $Signature = Verify::verifySignatureFile(
             $_FILES["a_video_inclusion"]["tmp_name"],
             $_FILES["a_video_inclusion"]["name"],
@@ -35,7 +36,7 @@ if (isset($_POST["validate_video_inclusion"])) {
         if ($Signature === false) {
             echo Exceptions::getErreurSignature() . " une vidéo !</p>";
         } else {
-            echo "Fichier inclus avec succès !";
+            echo $Succes;
         }
     } else {
         echo Exceptions::getErreurFichierVide();
@@ -45,7 +46,6 @@ if (isset($_POST["validate_video_inclusion"])) {
 //Section Fichier
 if (isset($_POST["validate_document_inclusion"])) {
     if ($_FILES["a_document_inclusion"] != null && $_FILES["a_document_inclusion"]["error"] === UPLOAD_ERR_OK) {
-        // CORRECTION: Passer tmp_name, puis name, puis le type
         $Signature = Verify::verifySignatureFile(
             $_FILES["a_document_inclusion"]["tmp_name"],
             $_FILES["a_document_inclusion"]["name"],
@@ -54,7 +54,7 @@ if (isset($_POST["validate_document_inclusion"])) {
         if ($Signature === false) {
             echo Exceptions::getErreurSignature() . " un document !</p>";
         } else {
-            echo "Fichier inclus avec succès !";
+            echo $Succes;
         }
     } else {
         echo Exceptions::getErreurFichierVide();

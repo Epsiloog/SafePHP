@@ -23,7 +23,7 @@ body {
     border-left: 4px solid #2196F3;
     margin: 20px 0;
 }
-a {
+a:not(.navbar-item){
     display: inline-block;
     margin-top: 20px;
     padding: 10px 20px;
@@ -32,6 +32,6 @@ a {
     text-decoration: none;
     border-radius: 4px;
 }
-a:hover {
+a:not(.navbar-item):hover {
     background: #45a049;
 }
