@@ -66,7 +66,7 @@ Voici les fonctionnement disponibles :
 
 ### Contribution
 
-Le projet SafePHP est en open source et libre de toute utilisation, que ce soit personnelle comme pédagogique. **Vous pouvez bien évidement contribuer activement au projet en faisant des fixs ou en apportant des features par exemple**.
+Le projet SafePHP est en open source et libre de toute utilisation, que ce soit personnelle comme pédagogique. **Vous pouvez bien évidement contribuer activement au projet en faisant des fixs, des tests ou en apportant des features par exemple**.
 Vous pouvez me conctacter à l'adresse mail thomas.thony.69@gmail.com .
 
 ## Avant toute chose
