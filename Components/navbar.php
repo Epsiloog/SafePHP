@@ -12,6 +12,7 @@
       <a class="navbar-item" href="index.php?action=test_form">Test Form</a>
       <a class="navbar-item" href="index.php?action=test_file_inclusion">Test File Inclusion</a>
       <a class="navbar-item" href="index.php?action=test_sri">Test SRI</a>
+      <a class="navbar-item" href="index.php?action=test_network">Test Réseau</a>
     </div>
   </div>
 </div>

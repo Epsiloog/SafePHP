@@ -44,4 +44,20 @@ class Network {
     public static function deleteBlackList(){
         return self::$BlackList = [];
     }
+
+    public static function getClientIP(){
+        $ip = $_SERVER['REMOTE_ADDR'] ?? 'UNKNOWN';
+        if ($ip === '::1') {
+            $ip = '127.0.0.1';
+        }
+        return $ip;
+    }
+
+    public static function getIPv4($ip){
+        return filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) !== false;
+    }
+
+    public static function getIPv6($ip){
+        return filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false;
+    }
 }
