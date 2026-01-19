@@ -11,7 +11,7 @@ class Network {
     }
     public static function getGreyList(){
         return self::$GreyList;
-    }   
+    }
     public static function getBlackList(){
         return self::$BlackList;
     }
@@ -25,14 +25,14 @@ class Network {
         return self::$BlackList = $AList;
     }
 
-    public static function addWhiteList(){
-
+    public static function addWhiteList($AnIPAdress){
+        return array_push(self::$WhiteList, $AnIPAdress);
     }
-    public static function addGreyList(){
-
+    public static function addGreyList($AnIPAdress){
+        return array_push(self::$GreyList, $AnIPAdress);
     }
-    public static function addBlackList(){
-
+    public static function addBlackList($AnIPAdress){
+        return array_push(self::$BlackList, $AnIPAdress);
     }
 
     public static function deleteWhiteList(){

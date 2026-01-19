@@ -191,4 +191,4 @@ Form::createLoginForm("Se_connecter");
 echo "<br>";
 
 echo "Formulaire d'inscription";
-Form::createRegisterForm("S_inscrire"); 
+Form::createRegisterForm("S_inscrire");

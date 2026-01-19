@@ -66,3 +66,19 @@ if (isset($_GET['action'])) {
     $title = "SafePHP | Accueil";
     $ressourceCSS = "./styles/accueil.css";
 }
+
+/* ===============LISTE BLANCHE POUR LE ROUTEUR PHP======================
+$pages_whitelist = array(
+    '1' => 'home.php',
+    '2' => 'account.php',
+    '3' => 'commands.php'
+);
+
+$page = $_GET['page'];
+if (array_key_exists($page, $pages_whitelist)) {
+    include $pages_whitelist[$page];
+}
+else {
+    erreur
+}
+*/

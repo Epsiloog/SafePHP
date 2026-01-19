@@ -17,7 +17,7 @@ class SRI {
         } elseif($InputType === "js") {
             return  "<script src='" . $FileDirection ."' integrity='" . $SRIHash . "' crossorigin='anonymous'></script>";
         } else {
-            return null;
+            die("Le format de ressource saisi n'est pas correct !");
         }
     }
 }

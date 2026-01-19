@@ -43,7 +43,7 @@ Header edit Set-Cookie ^(PHPSESSID=.*)$ "$1; HttpOnly; Secure; SameSite=Strict"
 
 #Module générique 
 # <Files "you_file_name_.extension">
-#  Your access argument
+#  Require 'Your access argument'
 #  Type of Page
-#  Type of Error "Customised message "
+#  Type of Error "Customised message"
 # </Files>

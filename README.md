@@ -1,6 +1,7 @@
 # SafePHP (Version Alpha) ![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white)
 
 ## Sommaire
+
 - [Sommaire](#sommaire)
 - [Introduction](#introduction)
   - [Contenu de la librarie](#contenu-de-la-librairie)
@@ -12,7 +13,6 @@
 - [Avant toute chose](#avant-toute-chose)
 - [Les différentes classes](#les-différentes-classes)
 
-
 ## Introduction
 
 Librairie PHP pour implémenter des moyens de cybersécurité facilment !
@@ -20,9 +20,11 @@ Librairie PHP pour implémenter des moyens de cybersécurité facilment !
 ### Contenu de la librairie
 
 Cette librairie contient des classes utilisables sans instancier d'objet, donc en faisant
+
 ```php
 NomDeLaclasse::NomDeLaFonction
 ```
+
 De plus, plusieurs fichiers de configuration sont à disposition dans le dossier **config** comme :
 
 - Un fichier de configuration Apache **.htaccess**
@@ -36,7 +38,8 @@ Serveur LAMP ou XAMP
 
 ### Installation
 
-Vous pouvez l'installer avec composer : 
+Vous pouvez l'installer avec composer :
+
 ```php
 composer require thomas-thony/safephp
 ```
@@ -72,15 +75,16 @@ Ce projet a été fait par un étudiant en informatique, avec le moins d'utilisa
 Je vous remercie d'être indulgent sur la qualité de code mais en étant pédagogique sur l'apport d'améliorations (dans le code ou simplement la manière de faire, tous les avis sont bon à prendre), ce projet a pour but de faciliter des développeurs pour la cyber-sécurité.
 
 ## Les différentes classes
-  - [AntiCommands](#la-classe-anticommands)
-  - [Auth](#la-classe-auth)
-  - [CSRF](#la-classe-csrf)
-  - [Database](#la-classe-database)
-  - [FileInclusion](#la-classe-fileinclusion)
-  - [Network](#la-classe-network)
-  - [Sanitize](#la-classe-sanitize)
-  - [SRI](#la-classe-sri)
-  - [Verify](#la-classe-verify)
+
+- [AntiCommands](#la-classe-anticommands)
+- [Auth](#la-classe-auth)
+- [CSRF](#la-classe-csrf)
+- [Database](#la-classe-database)
+- [FileInclusion](#la-classe-fileinclusion)
+- [Network](#la-classe-network)
+- [Sanitize](#la-classe-sanitize)
+- [SRI](#la-classe-sri)
+- [Verify](#la-classe-verify)
 
 ### La classe AntiCommands
 
@@ -101,7 +105,7 @@ La classe CSRF contient une fonction **createCSRF** qui crée un jeton CSRF, à 
 Lorsque vos formulaires sont soumis, utilisez la fonction **verifyCSRF** pour confirmer la présence de votre jeton CSRF.
 
 ```php
-<?php 
+<?php
 use SafePHP\CSRF;
 
 if (isset($_POST["text_test"])) {
@@ -111,9 +115,9 @@ if (isset($_POST["text_test"])) {
 
 <div class="test-csrf">
     <form action="" method="POST">
-        <?php 
-            CSRF::createCSRF(); //Création du jeton CSRF 
-        ?> 
+        <?php
+            CSRF::createCSRF(); //Création du jeton CSRF
+        ?>
 
         <input type="text" name="text_test" id="text_test" placeholder="Votre texte...">
 
@@ -127,7 +131,7 @@ if (isset($_POST["text_test"])) {
 
 ### La classe Database
 
-Un peu à l'écart des autres classes (Dans le dossier **config**), cette classe permet l'authentification, l'insertion de données en requêtes SQL en toutes sécurité par des requêtes préparées, un accès par le principe du moindre privilège et le filtrage permanent de ce qui entre et sort de la base de données.  
+Cette classe permet l'authentification, l'insertion de données en requêtes SQL en toutes sécurité par des requêtes préparées, un accès par le principe du moindre privilège et le filtrage permanent de ce qui entre et sort de la base de données.
 
 ### La classe FileInclusion
 
@@ -136,7 +140,8 @@ Une première fonction permet de renommer les fichiers inclus de manière aléat
 
 ### La classe Network
 
-Cette sert à Ajouter, lire et / ou supprimer des adresses IP de listes différentes : 
+Cette sert à Ajouter, lire et / ou supprimer des adresses IP de listes différentes :
+
 ```php
 <?php
 namespace SafePHP;
@@ -158,13 +163,14 @@ Une seule fonction **sanitize** est disponible pour le moment dans cette classe 
 Elle s'utilise de cette manière :
 
 ```php
-<?php 
+<?php
 Sanitize::sanitize($Input, $TypeFiltre); //Les filtres disponibles sont : email, int, float, string, text et bool
 ?>
 ```
 
 Un exemple concret :
-```php 
+
+```php
 <?php
 use SafePHP\Sanitize;
 
@@ -200,15 +206,16 @@ if (isset($_POST["testSanitize"])) {
 
 Cette classe est l'une des plus simples à utiliser car il suffit d'une seule fonction à mettre pour chaque appel par ressources Javascript ou CSS.
 
-Pour ce faire, faites simplement : 
+Pour ce faire, faites simplement :
+
 ```php
-<?php 
+<?php
 use SafePHP\SRI;
 
 $CSSFile = "./styles/main.css";
 $JSFile = "./scripts/main.js";
 
-SRI::createSRI("css", $CSSFile); //css ou js, sinon null
+SRI::createSRI("css", $CSSFile); //css ou js, sinon erreur
 SRI::createSRI("js", $JSFile);
 ?>
 ```
@@ -222,11 +229,56 @@ Vous pouvez voir la liste pour chaque type de fichiers en faisant :
 
 ```php
 <?php
-Verify::getTypeFileAviable($AType); //$AType: "Documents", "Images" ou "Videos"
+Verify::getTypeFileAviable($AType); //"Documents", "Images" ou "Videos"
 ?>
 ```
 
 La classe Verify va regarder plusieurs choses :
 
-- Vérifier le typage des entrées HMTL. 
-- Vérifier le type d'image et des fichiers (Leurs signatures).
+- Vérifier le typage des entrées HMTL :
+
+  ```php
+  <?php
+      use SafePHP\Verify;
+
+      if(isset($_POST["test_verify"]) && !empty($_POST["test_verify"])) {
+      $InputInt = $_POST["test_verify"];
+      $Verify = Verify::verify($Input, "integer");
+
+      $InputString = $_POST["test_verify_string"];
+      $VerifyBis = Verify::verify($InputString, "string");
+
+          if($Verify === 0) {
+              echo "Pas le bon TYPE : " . gettype($InputInt);
+          } else {
+              echo "Bon type !";
+          }
+
+          if ($VerifyBis === 0) {
+              echo "Pas le bon TYPE : " . gettype($InputString);
+          } else {
+              echo "Bon type !";
+          }
+
+      } else {
+          echo "Valeur non saisie ou vide !";
+      }
+  ?>
+  ```
+
+- Vérifier le type d'image et des fichiers (Leurs signatures) :
+  ```php
+    //Section Fichier
+    if (isset($_POST["validate_document_inclusion"])) {
+        if ($\_FILES["a_document_inclusion"] != null && $_FILES["a_document_inclusion"] ["error"] === UPLOAD_ERR_OK) {
+            $Signature = Verify::verifySignatureFile($_FILES["a_document_inclusion"]["tmp_name"], $_FILES["a_document_inclusion"]["name"],"Documents");
+            if ($Signature === false) {
+                echo Exceptions::getErreurSignature() . " un document !</p>";
+            } else {
+                echo $Succes;
+            }
+        } else {
+            echo Exceptions::getErreurFichierVide();
+        }
+    }
+    ```

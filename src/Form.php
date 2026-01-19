@@ -5,15 +5,13 @@ use Exception;
 
 class Form
 {
-    public static function getForm()
-    {
+    public static function getForm(){
         if (!CSRF::verifyCSRF()) {
             die("Jeton CSRF invalide !");
         }
     }
 
-    public static function createForm($NbCheckbox = null, $NbColor = null, $NbDate = null, $NbDateTimeLocal = null, $NbEmail = null, $NbFile = null, $NbImage = null, $NbMonth = null, $NbNumber = null, $NbPassword = null, $NbRadio = null, $NbRange = null, $NbSearch = null, $NbTel = null, $NbText = null, $NbTime = null, $NbUrl = null, $NbWeek = null)
-    {
+    public static function createForm($NbCheckbox = null, $NbColor = null, $NbDate = null, $NbDateTimeLocal = null, $NbEmail = null, $NbFile = null, $NbImage = null, $NbMonth = null, $NbNumber = null, $NbPassword = null, $NbRadio = null, $NbRange = null, $NbSearch = null, $NbTel = null, $NbText = null, $NbTime = null, $NbUrl = null, $NbWeek = null){
 
         CSRF::createCSRF();
 
@@ -142,5 +140,9 @@ class Form
                     S'inscrire
                 </button>";
         echo "</form>";
+    }
+
+    public static function createContactForm($FormName) {
+        
     }
 }
