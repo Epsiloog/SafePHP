@@ -37,7 +37,7 @@ Serveur LAMP ou XAMP
 ### Installation
 
 Vous pouvez l'installer avec composer : 
-```composer
+```php
 composer require thomas-thony/safephp
 ```
 

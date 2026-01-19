@@ -17,7 +17,7 @@ Header set Cache-Control "max-age=3000, public"
 #Politique de référence
 Header always set Referrer-Policy "strict-origin-when-cross-origin"
 
-#Limiter les méthodes possibles en HTTP
+#Limiter les méthodes possibles en HTTP (Ici simplement GET et POST)
 Header set Access-Control-Allow-Methods "GET, POST"
 
 #Gestion des cookies (accsessible uniquement en HTTP => Pas accessible par les langages de script), le navigateur envoie uniquement le cookie lorsque la requête est de type même origine.
