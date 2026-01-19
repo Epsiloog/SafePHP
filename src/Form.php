@@ -3,13 +3,18 @@ namespace SafePHP;
 use SafePHP\CSRF;
 use Exception;
 
-class Form
-{
+class Form {
+    private array $InputConfig;
+    
+    public function __construct() {
+        throw new \Exception('Not implemented');
+    }
     public static function getForm(){
         if (!CSRF::verifyCSRF()) {
             die("Jeton CSRF invalide !");
         }
     }
+
 
     public static function createForm($NbCheckbox = null, $NbColor = null, $NbDate = null, $NbDateTimeLocal = null, $NbEmail = null, $NbFile = null, $NbImage = null, $NbMonth = null, $NbNumber = null, $NbPassword = null, $NbRadio = null, $NbRange = null, $NbSearch = null, $NbTel = null, $NbText = null, $NbTime = null, $NbUrl = null, $NbWeek = null){
 
