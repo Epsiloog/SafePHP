@@ -32,11 +32,14 @@ De plus, plusieurs fichiers de configuration sont à disposition dans le dossier
 ### Outils requis
 
 PHP : Version 8.3.0 minimum \
-Serveur LAMP ou XAMP (Pas pour la librairie mais votre projet PHP en général)
+Serveur LAMP ou XAMP
 
 ### Installation
 
-**En cours de développement**
+Vous pouvez l'installer avec composer : 
+```composer
+composer require thomas-thony/safephp
+```
 
 ### Utilisation générale
 
@@ -66,7 +69,7 @@ Vous pouvez me conctacter à l'adresse mail thomas.thony.69@gmail.com .
 ## Avant toute chose
 
 Ce projet a été fait par un étudiant en informatique, avec le moins d'utilisation d'IA possible (Pas même pour la documentation), et vérification auprès de communautées certifiées quand c'est le cas.
-Je vous remercie d'être indulgent sur la qualité de code, ce projet a pour but de faciliter des développeurs pour la cyber-sécurité.
+Je vous remercie d'être indulgent sur la qualité de code mais en étant pédagogique sur l'apport d'améliorations (dans le code ou simplement la manière de faire, tous les avis sont bon à prendre), ce projet a pour but de faciliter des développeurs pour la cyber-sécurité.
 
 ## Les différentes classes
   - [AntiCommands](#la-classe-anticommands)
