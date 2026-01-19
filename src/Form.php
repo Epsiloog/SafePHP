@@ -3,15 +3,18 @@ namespace SafePHP;
 use SafePHP\CSRF;
 use Exception;
 
-class Form {
-    public static function getForm(){
+class Form
+{
+    public static function getForm()
+    {
         if (!CSRF::verifyCSRF()) {
             die("Jeton CSRF invalide !");
         }
     }
-    
-    public static function createForm($NbCheckbox = null, $NbColor = null, $NbDate = null, $NbDateTimeLocal = null, $NbEmail = null, $NbFile = null, $NbImage = null, $NbMonth = null, $NbNumber = null, $NbPassword = null, $NbRadio = null, $NbRange = null, $NbSearch = null, $NbTel = null, $NbText = null, $NbTime = null, $NbUrl = null, $NbWeek = null){
-        
+
+    public static function createForm($NbCheckbox = null, $NbColor = null, $NbDate = null, $NbDateTimeLocal = null, $NbEmail = null, $NbFile = null, $NbImage = null, $NbMonth = null, $NbNumber = null, $NbPassword = null, $NbRadio = null, $NbRange = null, $NbSearch = null, $NbTel = null, $NbText = null, $NbTime = null, $NbUrl = null, $NbWeek = null)
+    {
+
         CSRF::createCSRF();
 
         //Liste de tous les inputs possibles avec leur quantité envoyée en paramètres
@@ -118,14 +121,26 @@ class Form {
         }
     }
 
-    public static function createLoginForm(){
-        echo "<form method='POST' action=''>
-                ". CSRF::createCSRF() . "
-                
-             </form>";
+    public static function createLoginForm($FormName){
+        echo "<form action='' method='POST'>";
+        CSRF::createCSRF();
+        echo " <input type='text' name='name_input' placeholder='Nom' required>
+                <input type='password' name='password_input' required>
+                <button type='submit' name=" . $FormName . ">
+                    Se connecter
+                </button>";
+        echo "</form>";
     }
 
-    public static function createRegisterForm(){
-
+    public static function createRegisterForm($FormName){
+        echo "<form action='' method='POST'>";
+        CSRF::createCSRF();
+        echo " <input type='text' name='name_input' placeholder='Nom' required>
+                <input type='mail' name='mail_input' placeholder='adresse@mail.com' required>
+                <input type='password' name='password_input' required>
+                <button type='submit' name=" . $FormName . ">
+                    S'inscrire
+                </button>";
+        echo "</form>";
     }
 }
