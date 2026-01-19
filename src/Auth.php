@@ -16,18 +16,20 @@ class Auth {
                 if($name === null || $password === null) {
                     die("Un ou plusieurs champs sont manquants !");
                 }
+                $filterName = Sanitize::sanitize($name, "text");
+                $filterPassword = Sanitize::sanitize($password, "text");
                 try {
                     $connexion = Database::connectDatabase();
                     $stmt = $connexion->prepare("SELECT (name, password) FROM users WHERE name = :name");
-                    $stmt->bindValue(":name", $name, PDO::PARAM_STR);
+                    $stmt->bindValue(":name", $filterName, PDO::PARAM_STR);
                     $inscription = $stmt->execute();
 
-                    $passwordverify = password_verify($password, PASSWORD_DEFAULT);
+                    $passwordverify = password_verify($filterPassword, PASSWORD_DEFAULT);
 
                     if ($passwordverify) {
                         $verificationUtilisateur = $connexion->prepare("SELECT * FROM users WHERE pseudo = :name");
-                        $verificationUtilisateur->bindValue(":name", $name, PDO::PARAM_STR);
-                        $verificationUtilisateur->execute([$name]);
+                        $verificationUtilisateur->bindValue(":name", $filterName, PDO::PARAM_STR);
+                        $verificationUtilisateur->execute([$filterName]);
                         $unUtilisateur = $verificationUtilisateur->fetch(PDO::FETCH_ASSOC);
 
                         if ($unUtilisateur) {
@@ -55,12 +57,16 @@ class Auth {
 
     public static function register($name, $email, $password){
         if (isset($email, $name, $password) && !empty($name) && !empty($email) && !empty($password)) {
+
+            $filterName = Sanitize::sanitize($name, "text");
+            $filterEmail = Sanitize::sanitize($email, "email");
+            $filterPassword = Sanitize::sanitize($password, "text");
             $connexion = Database::connectDatabase();
 
-            $password_hash = password_hash($password, PASSWORD_DEFAULT);
+            $password_hash = password_hash($filterPassword, PASSWORD_DEFAULT);
             $stmt = $connexion->prepare("INSERT INTO users (name, email, password) VALUES (:name, :email, :password);");
-            $stmt->bindValue(":name", $name, PDO::PARAM_STR);
-            $stmt->bindValue(":email", $email, PDO::PARAM_STR);
+            $stmt->bindValue(":name", $filterName, PDO::PARAM_STR);
+            $stmt->bindValue(":email", $filterEmail, PDO::PARAM_STR);
             $stmt->bindValue(":password", $password_hash, PDO::PARAM_STR);
 
             $inscription = $stmt->execute([]);
@@ -71,8 +77,8 @@ class Auth {
 
                 $_SESSION["Utilisateur"] = [
                     "ID" => $idCompte,
-                    "Nom" => $name,
-                    "Adresse_Mail" => $email,
+                    "Nom" => $filterName,
+                    "Adresse_Mail" => $filterEmail,
                 ];
                 header("Location: ./index.php?action=accueilUtilisateur");
                 exit();
