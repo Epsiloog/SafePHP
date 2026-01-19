@@ -1,7 +1,6 @@
-# SafePHP (Version Alpha) ![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white) <img src="https://readme-icons.com/api/icons?i=shieldsdotio&size=64&perline=1" alt="Icons" />
+# SafePHP (Version Alpha) ![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white)
 
 ## Sommaire
-
 - [Sommaire](#sommaire)
 - [Introduction](#introduction)
   - [Contenu de la librarie](#contenu-de-la-librairie)
@@ -12,12 +11,7 @@
   - [Contribution](#contribution)
 - [Avant toute chose](#avant-toute-chose)
 - [Les différentes classes](#les-différentes-classes)
-  - [AntiCommands](#la-classe-anticommands)
-  - [Auth](#la-classe-auth)
-  - [CSRF](#la-classe-csrf)
-  - [Sanitize](#la-classe-sanitize)
-  - [SRI](#la-classe-sri)
-  - [Verify](#la-classe-verify)
+
 
 ## Introduction
 
@@ -25,7 +19,10 @@ Librairie PHP pour implémenter des moyens de cybersécurité facilment !
 
 ### Contenu de la librairie
 
-Cette librairie contient des classes utilisables sans instancier d'objet (Donc en faisant NomDeLaclasse::NomDeLaFonction). <br>
+Cette librairie contient des classes utilisables sans instancier d'objet, donc en faisant
+```php
+NomDeLaclasse::NomDeLaFonction
+```
 De plus, plusieurs fichiers de configuration sont à disposition dans le dossier **config** comme :
 
 - Un fichier de configuration Apache **.htaccess**
@@ -69,24 +66,34 @@ Vous pouvez me conctacter à l'adresse mail thomas.thony.69@gmail.com .
 ## Avant toute chose
 
 Ce projet a été fait par un étudiant en informatique, avec le moins d'utilisation d'IA possible (Pas même pour la documentation), et vérification auprès de communautées certifiées quand c'est le cas.
-Je vous remercie d'être indulgent sur la qualité de code, ce projet a pour but de faciliter des développeurs pour la cyber-sécurite.
+Je vous remercie d'être indulgent sur la qualité de code, ce projet a pour but de faciliter des développeurs pour la cyber-sécurité.
 
 ## Les différentes classes
+  - [AntiCommands](#la-classe-anticommands)
+  - [Auth](#la-classe-auth)
+  - [CSRF](#la-classe-csrf)
+  - [Dtabase](#la-classe-database)
+  - [FileInclusion](#la-classe-fileinclusion)
+  - [Sanitize](#la-classe-sanitize)
+  - [SRI](#la-classe-sri)
+  - [Verify](#la-classe-verify)
 
 ### La classe AntiCommands
+
+La classe AntiCommands a pour but d'éviter l'injection de commandes Shell ou Cmd.
 
 ### La classe Auth
 
 La classe Auth contient une fonction par défaut de connexion et d'inscription, le hash utilisé est celui par défaut de PHP (d'après la documentation PHP, c'est l'algorithme [BCRYPT](https://www.php.net/manual/fr/string.constants.php#constant.crypt-blowfish)).
 
-Il y'a également une gestion des sessions utilisateur, il y'a :
+Pour la gestion des sessions utilisateur, il y'a :
 
 - Les fonctions **login** et **register** qui créent les sessions utilisateur.
 - La fonction **logout** qui détruit toutes les sessions créées.
 
 ### La classe CSRF
 
-La classe CSRF contient une fonction **createCSRF** qui crée un jeton CSRF, à ajouter impérativeur dans chacun de vos formulaires.
+La classe CSRF contient une fonction **createCSRF** qui crée un jeton CSRF, à ajouter impérativement dans chacun de vos formulaires.
 Lorsque vos formulaires sont soumis, utilisez la fonction **verifyCSRF** pour confirmer la présence de votre jeton CSRF.
 
 ```php
@@ -113,6 +120,15 @@ if (isset($_POST["text_test"])) {
 </div>
 ?>
 ```
+
+### La classe database
+
+Un peu à l'écart des autres classes (Dans le dossier **config**), cette classe permet l'authentification, l'insertion de données en requêtes SQL en toutes sécurité par des requêtes préparées, un accès par le principe du moindre privilège et le filtrage permanent de ce qui entre et sort de la base de données. 
+
+### La classe FileInclusion
+
+Cette classe gère l'ensemble des fonctions associées à la gestion des fichiers.
+Une première fonction permet de renommer les fichiers inclus de manière aléatoire sur 24 bits, puis sont déplacés dans un dossier "caché" (débutant par un '.').
 
 ### La classe Sanitize
 

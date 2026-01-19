@@ -1,13 +1,12 @@
 <?php
 namespace SafePHP;
 
-class Verify
-{
-    private static array $DocumentsFile = ["pdf", "doc", "docx", "txt", "odt", "ppt", "pptx"];
-    private static array $ImagesFile = ["png", "jpeg", "jpg", "gif"];
-    private static array $VideosFile = ["mov", "mp4", "m4a"];
+class Verify {
+    private static array $DocumentsFile = ["pdf", "doc", "docx", "txt", "odt", "ppt", "pptx"]; //Liste d'extension de documents valide
+    private static array $ImagesFile = ["png", "jpeg", "jpg", "gif"]; //Liste d'extension d'image valide
+    private static array $VideosFile = ["mov", "mp4", "m4a"]; //Liste d'extension vidéo valides
 
-    // Mapping STRICT : extensions -> types MIME autorisés
+    //Liste des types MIME autorisés
     private static array $MimeTypes = [
         // Documents
         "pdf" => ["application/pdf"],
@@ -37,8 +36,12 @@ class Verify
         "m4a" => ["audio/mp4", "audio/x-m4a"]
     ];
 
-    public static function getTypeFileAviable($AType): array
-    {
+    /**
+     * Donne une liste d'extension en fonction du type de fichier choisi
+     * @param string $AType Le type de fichier attendu (Documents, Images, Videos)
+     * @return array Retourne la liste d'extension de fichiers
+     */
+    public static function getTypeFileAviable($AType): array {
         switch ($AType) {
             case "Documents":
                 return self::$DocumentsFile;
@@ -51,8 +54,13 @@ class Verify
         }
     }
 
-    public static function verify($input, $typeToHave)
-    {
+    /**
+     * Vérifie le type de valeur envoyée
+     * @param string $input La valeur à vérifier
+     * @param string $typeToHave Le type de valeur à obtenir
+     * @return int|string retourne 1 si le type vérifié est correct, sinon faux, si le type demandé est inconnu, alors la fonction renvoie null
+     */
+    public static function verify($input, $typeToHave){
         switch ($typeToHave) {
             case "bool":
                 return is_bool($input) ? 1 : 0;
@@ -75,14 +83,19 @@ class Verify
             case "NULL":
                 return is_null($input) ? 1 : 0;
             case "unknown type":
-                return;
+                return "null";
             default:
                 return "null";
         }
     }
 
-    public static function verifyExtensionImage($File)
-    {
+
+    /**
+     * Vérifie l'extension de l'image envoyée
+     * @param string  $File Le type fichier à analyser
+     * @return int retourne 1 si l'extension du fichier est dans la liste des formats acceptés, sinon 0
+     */
+    public static function verifyExtensionImage($File){
         $Extension = strtolower(pathinfo($File, PATHINFO_EXTENSION));
         if (in_array($Extension, self::$ImagesFile)) {
             return 1;
@@ -121,7 +134,7 @@ class Verify
 
         $allowedMimeTypesForExtension = self::$MimeTypes[$Extension];
 
-        if (!in_array($detectedMimeType, $allowedMimeTypesForExtension)) {
+        if (!in_array($detectedMimeType, $allowedMimeTypesForExtension)){
             return false;
         }
         return true;

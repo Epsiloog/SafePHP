@@ -20,4 +20,9 @@ class Database {
             die("Error by login to database : " . $e->getMessage());
         }
     }
+
+    public static function InsertSQL($Query){
+        $connexion = self::connectDatabase();
+        $connexion->prepare($Query);
+    }
 }

@@ -1,14 +1,22 @@
 <?php
 namespace SafePHP;
-
+use SafePHP\Database;
 class FileInclusion {
-    public static function includeFile($File){
+    public static function includeFile($File, $FileDirection = null, $SQLRequest = null){
+        //Si un chemin est défini
+        if($FileDirection != null) {
+           //Déplacement du fichier
+        } elseif($SQLRequest != null) {
+            Database::InsertSQL($SQLRequest);
+        }
 
+        if(($FileDirection != null) && ($SQLRequest != null)) {
+            throw new \BadFunctionCallException("Merci de ne choisir qu'une seule option (Chemin d'accès ou requête SQL) !");
+        }
     }
 
-    public static function renameFile($tmpFilePath, $originalFileName)
-    {
-        $TempDir = "./tmp";
+    public static function renameFile($tmpFilePath, $originalFileName){
+        $TempDir = "./.tmp";
         $ExtensionFile = pathinfo($originalFileName, PATHINFO_EXTENSION);
 
         $RandomName = bin2hex(random_bytes(24));
@@ -23,10 +31,6 @@ class FileInclusion {
             echo "Erreur lors du déplacement de fichier";
             return false;
         }
-    }
-
-    public static function getImageFormatAviable() : array {
-        return $AcceptPicturesFormat = ["png", "jpg", "jpeg", "svg"];
     }
 
     public static function verifySignatureImage($File){
