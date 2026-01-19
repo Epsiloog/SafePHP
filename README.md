@@ -75,8 +75,9 @@ Je vous remercie d'être indulgent sur la qualité de code mais en étant pédag
   - [AntiCommands](#la-classe-anticommands)
   - [Auth](#la-classe-auth)
   - [CSRF](#la-classe-csrf)
-  - [Dtabase](#la-classe-database)
+  - [Database](#la-classe-database)
   - [FileInclusion](#la-classe-fileinclusion)
+  - [Network](#la-classe-network)
   - [Sanitize](#la-classe-sanitize)
   - [SRI](#la-classe-sri)
   - [Verify](#la-classe-verify)
@@ -124,7 +125,7 @@ if (isset($_POST["text_test"])) {
 ?>
 ```
 
-### La classe database
+### La classe Database
 
 Un peu à l'écart des autres classes (Dans le dossier **config**), cette classe permet l'authentification, l'insertion de données en requêtes SQL en toutes sécurité par des requêtes préparées, un accès par le principe du moindre privilège et le filtrage permanent de ce qui entre et sort de la base de données.  
 
@@ -132,6 +133,23 @@ Un peu à l'écart des autres classes (Dans le dossier **config**), cette classe
 
 Cette classe gère l'ensemble des fonctions associées à la gestion des fichiers.
 Une première fonction permet de renommer les fichiers inclus de manière aléatoire sur 24 bits, puis sont déplacés dans un dossier "caché" (débutant par un ' **.** ').
+
+### La classe Network
+
+Cette sert à Ajouter, lire et / ou supprimer des adresses IP de listes différentes : 
+```php
+<?php
+namespace SafePHP;
+class Network {
+    private static array $WhiteList; //Adresses autorisées
+    private static array $GreyList; //Adresses autorisées sous controle
+    private static array $BlackList; //Adresses bannies/refusées
+}
+/*
+Getters et setters pour chaque liste définis dans la classe
+*/
+?>
+```
 
 ### La classe Sanitize
 
