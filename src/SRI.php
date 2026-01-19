@@ -13,7 +13,7 @@ class SRI {
         $FileContent = file_get_contents($FileDirection);
         $SRIHash = self::hashSRI($FileContent);
         if($InputType === "css") {
-            return  "<link rel='stylesheet' hrefg='" . $FileDirection . "' integrity='" . $SRIHash . "' crossorigin='anonymous'>";
+            return  "<link rel='stylesheet' href='" . $FileDirection . "' integrity='" . $SRIHash . "' crossorigin='anonymous'>";
         } elseif($InputType === "js") {
             return  "<script src='" . $FileDirection ."' integrity='" . $SRIHash . "' crossorigin='anonymous'></script>";
         } else {

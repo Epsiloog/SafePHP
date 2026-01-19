@@ -4,14 +4,12 @@ use SafePHP\CSRF;
 use Exception;
 
 class Form {
-    public static function getForm()
-    {
+    public static function getForm(){
         if (!CSRF::verifyCSRF()) {
-            exit(0);
+            die("Jeton CSRF invalide !");
         }
     }
     
-
     public static function createForm($NbCheckbox = null, $NbColor = null, $NbDate = null, $NbDateTimeLocal = null, $NbEmail = null, $NbFile = null, $NbImage = null, $NbMonth = null, $NbNumber = null, $NbPassword = null, $NbRadio = null, $NbRange = null, $NbSearch = null, $NbTel = null, $NbText = null, $NbTime = null, $NbUrl = null, $NbWeek = null){
         
         CSRF::createCSRF();
@@ -118,5 +116,16 @@ class Form {
                 echo $e->getMessage();
             }
         }
+    }
+
+    public static function createLoginForm(){
+        echo "<form method='POST' action=''>
+                ". CSRF::createCSRF() . "
+                
+             </form>";
+    }
+
+    public static function createRegisterForm(){
+
     }
 }
