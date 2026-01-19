@@ -123,12 +123,12 @@ if (isset($_POST["text_test"])) {
 
 ### La classe database
 
-Un peu à l'écart des autres classes (Dans le dossier **config**), cette classe permet l'authentification, l'insertion de données en requêtes SQL en toutes sécurité par des requêtes préparées, un accès par le principe du moindre privilège et le filtrage permanent de ce qui entre et sort de la base de données. 
+Un peu à l'écart des autres classes (Dans le dossier **config**), cette classe permet l'authentification, l'insertion de données en requêtes SQL en toutes sécurité par des requêtes préparées, un accès par le principe du moindre privilège et le filtrage permanent de ce qui entre et sort de la base de données.  
 
 ### La classe FileInclusion
 
 Cette classe gère l'ensemble des fonctions associées à la gestion des fichiers.
-Une première fonction permet de renommer les fichiers inclus de manière aléatoire sur 24 bits, puis sont déplacés dans un dossier "caché" (débutant par un '.').
+Une première fonction permet de renommer les fichiers inclus de manière aléatoire sur 24 bits, puis sont déplacés dans un dossier "caché" (débutant par un ' **.** ').
 
 ### La classe Sanitize
 
