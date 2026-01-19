@@ -1,3 +1,4 @@
 /vendor
-.github
-tmp/*
+.github/workflows
+.tmp/*
+.vscode
