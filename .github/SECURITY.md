@@ -14,6 +14,7 @@ SafePHP was made first on PHP 8.0.0, so take in consideration that under this ve
 ## Reporting a Vulnerability
 
 
-Whenever you see something not normal on the code or found a vulnerability, you can join by mail at **thomas.thony.69@gmail.com** .
+Whenever you see something not normal on the code or found a vulnerability, you can join by mail at **thomas.thony.69@gmail.com** . 
+
 If you are a nerd, you can join me on Discord with : **Just-Thomas**
 I will awnser as soon as i see the contact.
