@@ -104,17 +104,17 @@ jobs:
       uses: php-actions/phpmd@v2
       with:
     # What version of PHPMD to use
-        version: default # optional, default is composer
+        version: composer # optional, default is composer
     # What version of PHP to use
-        php_version: 8.0 # optional, default is latest
+        php_version: 8.0.0 # optional, default is latest
     # Path to a vendored phpmd binary
         vendored_phpmd_path: # optional
     # A php source code filename or directory. Can be a comma-separated string
-        path: 
+        path: src
     # A ruleset filename or a comma-separated string of rulesetfilenames
-        ruleset: 
+        ruleset: cleancode,codesize,design,naming,unusedcode
     # A report format
-        output: # optional, default is text
+        output: text
     # rule priority threshold; rules with lower priority than this will not be used
         minimumpriority: # optional
     # send report output to a file; default to STDOUT
