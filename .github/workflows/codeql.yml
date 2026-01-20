@@ -101,19 +101,22 @@ jobs:
         run: phpstan analyse src --level=5
 
   phpunit:
-    name: PHPUnit Tests
+    name: Unit Tests (PHP ${{ matrix.php }})
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: ['8.2', '8.3']
     steps:
       - uses: actions/checkout@v4
       
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: ${{ matrix.php }}
           coverage: xdebug
           
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
-      
+        
       - name: Run tests
-        run: vendor/bin/phpunit --coverage-text
+        run: vendor/bin/phpunit
