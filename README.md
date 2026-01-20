@@ -1,6 +1,6 @@
 # [SafePHP](#safephp)  (Version Alpha) ![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white)
 ## (An english version is in work) 
-<a href="#safephp"><img src="./Components/Img/fra.svg" style="width:40px; height:auto;"></a> <a href="#safephpeng"><img src="./Components/Img/eng.svg" style="width:40px; height:auto;"></a>
+<a href="#sommaire"><img src="./Components/Img/fra.svg" style="width:40px; height:auto;"></a> <a href="#summary"><img src="./Components/Img/eng.svg" style="width:40px; height:auto;"></a>
 ## Sommaire
 
 - [Sommaire](#sommaire)
@@ -284,8 +284,8 @@ La classe Verify va regarder plusieurs choses :
     }
     ```
 
-# [SafePHP](#safephpeng) (Alpha Version) ![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white) 
-<a href="#sommaire"><img src="./Components/Img/fra.svg" style="width:40px; height:auto;"></a> <a href="#"><img src="./Components/Img/eng.svg" style="width:40px; height:auto;"></a>
+# [SafePHP](#safephp) (Alpha Version) ![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white) 
+<a href="#sommaire"><img src="./Components/Img/fra.svg" style="width:40px; height:auto;"></a> <a href="#summary"><img src="./Components/Img/eng.svg" style="width:40px; height:auto;"></a>
 ## Summary
 
 - [Summary](#summary)
