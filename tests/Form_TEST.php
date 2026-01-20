@@ -182,13 +182,3 @@ if(isset($_POST["Se_connecter"]) && $_POST["Se_connecter"] != null) {
 
     ?>
 </div>
-
-<?php
-
-echo "Formulaire de connexion";
-Form::createLoginForm("Se_connecter");
-
-echo "<br>";
-
-echo "Formulaire d'inscription";
-Form::createRegisterForm("S_inscrire");

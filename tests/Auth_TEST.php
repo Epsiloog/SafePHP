@@ -1,12 +1,13 @@
 <?php
     require_once __DIR__ . '/../vendor/autoload.php';
     use SafePHP\Auth;
-
-    if(isset($_POST["login_test"])) {
+    use SafePHP\Form;
+    
+    if(isset($_POST["Se_connecter"])) {
         $name = $_POST["pseudo"];
         $password = $_POST["password"];
-        Auth::login($name, $password);
-    } elseif(isset($_POST["register_test"])) {
+        Auth::login($_POST["Se_connecter"], $name, $password);
+    } elseif(isset($_POST["S_inscrire"])) {
         $name = $_POST["name"];
         $mail= $_POST["email"];
         $password = $_POST["password"];
@@ -18,25 +19,15 @@
 <div class="main-container-auth-test">
     <div class="login-test-container">
         <h2>Login test</h2>
-        <form action="" method="POST">
-            <input type="text" name="pseudo" placeholder="Pseudo..." required>
-            <input type="password" name="password" required>
-
-            <button type="submit" name="login_test">
-                Valider
-            </button>
-        </form>
+        <?php
+            Form::createLoginForm("Se_connecter");
+        ?>
     </div>
 
     <div class="register-test-container">
         <h2>Register test</h2>
-        <form action="" method="POST">
-            <input type="text" name="name" placeholder="Name..." required>
-            <input type="email" name="email" placeholder="adresse@email.com" required>
-            <input type="password" name="password" required>
-            <button type="submit" name="register_test">
-                Valider
-            </button>
-        </form>
+            <?php
+                Form::createRegisterForm("S_inscrire");
+            ?>
     </div>
 </div>
