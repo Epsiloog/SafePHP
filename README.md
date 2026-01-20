@@ -1,4 +1,6 @@
 # [SafePHP](#safephp)  (Version Alpha) ![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white)
+[![CodeQL](https://github.com/thomas-thony/SafePHP/workflows/CodeQL%20Advanced/badge.svg)](https://github.com/thomas-thony/SafePHP/actions)
+[![codecov](https://codecov.io/gh/thomas-thony/SafePHP/branch/main/graph/badge.svg)](https://codecov.io/gh/thomas-thony/SafePHP)
 ## (An english version is in work) 
 <a href="#safephp"><img src="./Components/Img/fra.svg" style="width:40px; height:auto;"></a> <a href="#safephpeng"><img src="./Components/Img/eng.svg" style="width:40px; height:auto;"></a>
 ## Sommaire
