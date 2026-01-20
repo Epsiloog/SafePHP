@@ -22,5 +22,8 @@
   "prefer-stable": true,
   "require-dev": {
     "phpunit/phpunit": "^12.5"
+  },
+  "require-dev": {
+    "phpmd/phpmd": "^2.15"
   }
 }
