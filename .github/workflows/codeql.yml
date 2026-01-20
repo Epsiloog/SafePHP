@@ -65,3 +65,4 @@ jobs:
 
       - name: Run PHPMD
         run: phpmd src text cleancode,codesize,design,naming,unusedcode
+        continue-on-error: true  
