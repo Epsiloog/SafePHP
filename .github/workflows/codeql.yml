@@ -105,8 +105,7 @@ jobs:
       with:
     # What version of PHPMD to use
         version: latest # optional, default is composer
-    # What version of PHP to use
-        php_version: 8.0.0 # optional, default is latest
+      #php_version: 8.0.0 # optional, default is latest
     # Path to a vendored phpmd binary
         vendored_phpmd_path: # optional
     # A php source code filename or directory. Can be a comma-separated string
