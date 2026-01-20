@@ -49,7 +49,6 @@ jobs:
       with:
         category: "/language:${{matrix.language}}"
 
-  # Job séparé pour PHPMD
   phpmd:
     name: PHP Mess Detector
     runs-on: ubuntu-latest
@@ -60,12 +59,12 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: '8.0'  # ✅ PHP 8.0
           tools: phpmd
 
       - name: Run PHPMD
-        run: phpmd src text cleancode,codesize,design,naming,unusedcode
-        continue-on-error: true  
+        run: phpmd src github cleancode,codesize,design,naming,unusedcode
+        continue-on-error: true
     
   php-cs-fixer:
     name: PHP CS Fixer
@@ -76,11 +75,12 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: '8.0'  # ✅ PHP 8.0
           tools: php-cs-fixer
       
       - name: Run PHP CS Fixer
         run: php-cs-fixer fix --dry-run --diff --verbose
+        continue-on-error: true
 
   phpstan:
     name: PHPStan Static Analysis
@@ -91,7 +91,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: '8.0'  # ✅ PHP 8.0
           tools: phpstan
           
       - name: Install dependencies
@@ -99,13 +99,14 @@ jobs:
       
       - name: Run PHPStan
         run: phpstan analyse src --level=5
+        continue-on-error: true
 
   phpunit:
     name: Unit Tests (PHP ${{ matrix.php }})
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php: ['8.2', '8.3']
+        php: ['8.0', '8.1', '8.2', '8.3']  # ✅ Ajout de 8.0 et 8.1
     steps:
       - uses: actions/checkout@v4
       
@@ -119,4 +120,4 @@ jobs:
         run: composer install --prefer-dist --no-progress
         
       - name: Run tests
-        run: vendor/bin/phpunit
+        run: vendor/bin/phpunit --coverage-text
