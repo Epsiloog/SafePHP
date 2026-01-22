@@ -2,8 +2,7 @@
 namespace SafePHP;
 
 class AntiCommands {
-    public static function deleteShellArgs($Input)
-    {
+    public static function deleteShellArgs($Input){
         return $filterAntiCommand = escapeshellarg($Input);
     }
 

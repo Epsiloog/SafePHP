@@ -383,22 +383,22 @@ For users's session management, there are :
 
 ### CSRF Class
 
-La classe CSRF contient une fonction **createCSRF** qui crée un jeton CSRF, à ajouter impérativement dans chacun de vos formulaires.
-Lorsque vos formulaires sont soumis, utilisez la fonction **verifyCSRF** pour confirmer la présence de votre jeton CSRF.
+The CSRF class has a function **createCSRF** that create a CSRF token, to implement in every form you create.
+Once your forms submited, call the function **verifyCSRF** to confirm your CSRF token's presence.
 
 ```php
 <?php
 use SafePHP\CSRF;
 
 if (isset($_POST["text_test"])) {
-    CSRF::verifyCSRF(); //Vérification du jeton CSRF quand le formulaire est envoyé
+    CSRF::verifyCSRF(); //Verifying CSRF toekn
 }
 ?>
 
 <div class="test-csrf">
     <form action="" method="POST">
         <?php
-            CSRF::createCSRF(); //Création du jeton CSRF
+            CSRF::createCSRF(); //Insert CSRF token
         ?>
 
         <input type="text" name="text_test" id="text_test" placeholder="Votre texte...">
@@ -413,44 +413,44 @@ if (isset($_POST["text_test"])) {
 
 ### Database Class
 
-Cette classe permet l'authentification, l'insertion de données en requêtes SQL en toutes sécurité par des requêtes préparées, un accès par le principe du moindre privilège et le filtrage permanent de ce qui entre et sort de la base de données.
+This class can manage authentification, datas insertion in SQL requests, prepared for a better security, an access by the principle of least privilege and a permanent filter for everything to goes to and come from the database.
 
 ### FileInclusion Class
 
-Cette classe gère l'ensemble des fonctions associées à la gestion des fichiers.
-Une première fonction permet de renommer les fichiers inclus de manière aléatoire sur 24 bits, puis sont déplacés dans un dossier "caché" (débutant par un ' **.** ').
+This class manage all functions linked to files management.
+A primary function can rename diles includes with randoms characters on 24 bits, then moved on a hidden folder(starting with a '**.**'). 
+
 
 ### Network Class
 
-Cette sert à Ajouter, lire et / ou supprimer des adresses IP de listes différentes :
+This class sert can add, read and/or delete IP adresses of differents lists :
 
 ```php
 <?php
 namespace SafePHP;
 class Network {
-    private static array $WhiteList; //Adresses autorisées
-    private static array $GreyList; //Adresses autorisées sous controle
-    private static array $BlackList; //Adresses bannies/refusées
+    private static array $WhiteList; //Autorised adresses 
+    private static array $GreyList; //Autorised adresses under control 
+    private static array $BlackList; //Refused/banned adresses
 }
 /*
-Getters et setters pour chaque liste définis dans la classe
+Getters and setters for each lists
 */
 ?>
 ```
 
 ### Sanitize Class
+Only one function **sanitize** is aviable for the moment in this class that simplify the usage of filters **Sanitize** by default in PHP. 
 
-Une seule fonction **sanitize** est disponible pour le moment dans cette classe qui permet de simplifier l'utilisation des filtres **Sanitize** présents par défault dans le langage PHP.
-
-Elle s'utilise de cette manière :
+Here's how it's used :
 
 ```php
 <?php
-Sanitize::sanitize($Input, $TypeFiltre); //Les filtres disponibles sont : email, int, float, string, text et bool
+Sanitize::sanitize($Input, $TypeFiltre); //Filters aviables are : email, int, float, string, text and bool
 ?>
 ```
 
-Un exemple concret :
+Example :
 
 ```php
 <?php
@@ -485,10 +485,9 @@ if (isset($_POST["testSanitize"])) {
 ```
 
 ### SRI Class
+This class is one of the most easiest to use because it only need one function to call for every ressources in CSS or JS.
 
-Cette classe est l'une des plus simples à utiliser car il suffit d'une seule fonction à mettre pour chaque appel par ressources Javascript ou CSS.
-
-Pour ce faire, faites simplement :
+Just do :
 
 ```php
 <?php
@@ -497,17 +496,17 @@ use SafePHP\SRI;
 $CSSFile = "./styles/main.css";
 $JSFile = "./scripts/main.js";
 
-SRI::createSRI("css", $CSSFile); //css ou js, sinon erreur
+SRI::createSRI("css", $CSSFile); //css ou js, otherwise error
 SRI::createSRI("js", $JSFile);
 ?>
 ```
 
-Vous pourrez vérifier le résultat depuis l'inspecteur d'élement.
+You can see the results on web tools developpement in our browser.
 
 ### Verify Class
 
-La classe Verify possède trois listes d'extensions de fichiers disponibles, pour les documents, les images et les vidéos.
-Vous pouvez voir la liste pour chaque type de fichiers en faisant :
+The Verify class contains 3 extension's files lists, for documents, pictures and videos. 
+You can see the list for each type of files by doing :
 
 ```php
 <?php
@@ -515,9 +514,9 @@ Verify::getTypeFileAviable($AType); //"Documents", "Images" ou "Videos"
 ?>
 ```
 
-La classe Verify va regarder plusieurs choses :
+The Verfiy class will verify a couple of things :
 
-- Vérifier le typage des entrées HMTL :
+- HTML's Inputs types :
 
   ```php
   <?php
@@ -548,7 +547,7 @@ La classe Verify va regarder plusieurs choses :
   ?>
   ```
 
-- Vérifier le type d'image et des fichiers (Leurs signatures) :
+- Verify image type and of others files (Their checksum) :
   ```php
     //Section Fichier
     if (isset($_POST["validate_document_inclusion"])) {
