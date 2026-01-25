@@ -1,5 +1,5 @@
 <?php
-namespace SafePHP;
+    namespace SafePHP;
 
 class AntiCommands {
     public static function deleteShellArgs($Input){
