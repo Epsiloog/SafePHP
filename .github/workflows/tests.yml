@@ -115,7 +115,7 @@ jobs:
 
     - name: Upload test coverage
       if: steps.check-tests.outputs.tests_exist == 'true'
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: test-coverage-php-${{ matrix.php-version }}
         path: |
