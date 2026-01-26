@@ -13,7 +13,7 @@ class Session extends SessionHandler{
 
     private string $iv = "XDFGTESHGJYLYFH";
 
-    public function __construct($ARegenCookie, $TokenSecretKey){
+    public function __construct($ARegenCookie){
         if ($ARegenCookie === true) {
             $RegenerateCookies = true;
             session_regenerate_id(true);
@@ -37,7 +37,7 @@ class Session extends SessionHandler{
         session_regenerate_id($ASessionId);
     }
 
-    public static function encryptSessionId($id) {
+    public function encryptSessionId($id) {
         $encryptedKey = hash('sha256', self::$secretKey);
         $iv = substr(hash('sha256', self::$iv), 0, 16);
         $encryptedSessionId = openssl_encrypt($id, self::$encrytMethod, $encryptedKey, 0, $iv);
@@ -45,7 +45,7 @@ class Session extends SessionHandler{
         return $encryptedKey;
     }
 
-    public static function decryptSessionId($userId) {
+    public function decryptSessionId($userId) {
         $userId = base64_encode($userId);
         $encodedKey = hash("sha256", self::$secretKey);
         $iv = substr(hash("sha256", self::$iv), 0, 16);

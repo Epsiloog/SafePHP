@@ -13,23 +13,19 @@ if (isset($_POST["testSanitize"])) {
     $FiltreMail = Sanitize::sanitize($_POST["testSanitizeMail"], "email");
 
     echo "<h3>Comparaison</h3>";
+    echo "<strong>Entrée brute :</strong><br>";
+    echo "<pre>" . $FiltreText . "</pre>";
+    echo "<strong>Après sanitize :</strong><br>";
+    echo "<pre>" . htmlspecialchars($FiltreText, ENT_QUOTES, 'UTF-8') . "</pre>";
 
-    foreach($_POST as $APost) {
-        echo "<strong>Entrée brute :</strong><br>";
-        echo "<pre>" . htmlspecialchars($APost, ENT_QUOTES, 'UTF-8') . "</pre>";
-        echo "<strong>Après sanitize :</strong><br>";
-        echo "<pre>" . htmlspecialchars($APost, ENT_QUOTES, 'UTF-8') . "</pre>";
-    }
+    echo "<strong>Entrée brute :</strong><br>";
+    echo "<pre>" . $FiltreMail . "</pre>";
+    echo "<strong>Après sanitize :</strong><br>";
+    echo "<pre>" . htmlspecialchars($FiltreMail, ENT_QUOTES, 'UTF-8') . "</pre>";
 }
 
 ?>
-
-<!DOCTYPE html>
-<html lang="fr">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test Form</title>
 </head>
 

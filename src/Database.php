@@ -4,6 +4,11 @@ use PDO;
 use PDOException;
 use Dotenv\Dotenv;
 class Database {
+
+    /**
+     * Connexion to the database with secrets keys aviables on .env file
+     * @return PDO object to manipulate SQL
+     */
     public static function connectDatabase() {
         $dotenv = Dotenv::createImmutable(__DIR__);
         $dotenv->load();
@@ -21,7 +26,12 @@ class Database {
         }
     }
 
-    public static function InsertSQL($Query){
+    /**
+     * Create SQL request prepared to avoid injection, don't forget to add verify &/or sanitize functions for more safety
+     * @param string $Query request to forge
+     * @return void
+     */
+    public static function InsertSQL(string $Query){
         $connexion = self::connectDatabase();
         $connexion->prepare($Query);
     }

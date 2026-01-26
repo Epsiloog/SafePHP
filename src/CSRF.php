@@ -2,6 +2,10 @@
 namespace SafePHP;
 
 class CSRF {
+
+    /** Create a CSRF token
+     * @return void the CSRF token created on HTML input
+     */
     public static function createCSRF(){
          if (session_status() === PHP_SESSION_NONE) {
             session_start();
@@ -12,6 +16,9 @@ class CSRF {
         return;
     }
 
+    /** Verify if there is a CSRF token and if it's correct
+     * @return void error or a message that said the token is correct
+     */
     public static function verifyCSRF(){
         $CSRF_INPUT = $_POST["csrf_token"];
         if(!isset($CSRF_INPUT) || $CSRF_INPUT == null || !(hash_equals($CSRF_INPUT, $_SESSION["csrf_token"]))){

@@ -47,3 +47,10 @@ Header edit Set-Cookie ^(PHPSESSID=.*)$ "$1; HttpOnly; Secure; SameSite=Strict"
 #  Type of Page
 #  Type of Error "Customised message"
 # </Files>
+
+# Template de types de fichiers autorisés
+# deny from all
+# <Files ~ "\.(gif|jpe?g|png|pdf)$">
+#     order deny,allow
+#     allow from all
+# </Files>

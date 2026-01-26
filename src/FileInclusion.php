@@ -2,23 +2,36 @@
 namespace SafePHP;
 use SafePHP\Database;
 class FileInclusion {
-    public static function includeFile($File, $FileDirection = null, $SQLRequest = null){
-        //Si un chemin est défini
+    /**
+     * Include a file on the server or database
+     * @param string $FileDirection the file path
+     * @param string $SQLRequest SQL request to include the file
+     * @return bool|string
+     */
+    public static function includeFile($FileDirection = null, $SQLRequest = null){
+        //If a path is defined
         if($FileDirection != null) {
-           //Déplacement du fichier
+           //If a SQL request is set
         } elseif($SQLRequest != null) {
             return Database::InsertSQL($SQLRequest);
         }
 
-        if(($FileDirection != null) && ($SQLRequest != null)) {
+        if(($FileDirection != null) && ($SQLRequest != null)) { //The two conditions cannot be set at the same time
             throw new \BadFunctionCallException("Merci de ne choisir qu'une seule option (Chemin d'accès ou requête SQL) !");
         }
 
+        //At least one parameter should be set
         if(($FileDirection === null) && ($SQLRequest === null)){
             throw new \BadFunctionCallException("Merci de choisir une option (Chemin d'accès ou requête SQL) !");
         }
     }
 
+    /**
+     * Renamme a file et move it on a temp folder
+     * @param string $tmpFilePath the path of the file
+     * @param string $originalFileName file name when uploaded by user
+     * @return bool|string
+     */
     public static function renameFile($tmpFilePath, $originalFileName){
         $TempDir = "./.tmp";
         $ExtensionFile = pathinfo($originalFileName, PATHINFO_EXTENSION);
@@ -37,10 +50,21 @@ class FileInclusion {
         }
     }
 
+    /**
+     * Return the type "MIME" of the picture
+     * @param mixed $File path of the file to verify
+     * @return bool|int
+     */
     public static function verifySignatureImage($File){
         return exif_imagetype($File);
     }
 
+    /**
+     *  Recreate an image uploaded,  this lead to, in case of a file uploaded is a script disguised, to avoid code injection
+     * @param string $FileName Name of the file
+     * @param string $tmpFilePath Path of the file
+     * @return bool|string
+     */
     public static function recreateImage($FileName, $tmpFilePath) {
         if($FileName != null) {
             self::verifySignatureImage($FileName);
@@ -51,9 +75,9 @@ class FileInclusion {
     }
 
     /**
-     * Redimensionne une image pour convenir à un standard par rapport ay type (MIME) d'image
-     * @param string $File le chemin de l'image
-     * @return void
+     * Resize the picture to be in sens with standard of type(MIME)
+     * @param string $File the path of the file
+     * @return bool
      */
     public static function reSizeImage($File) {
         //Récupération du contenu de l'image
@@ -103,7 +127,7 @@ class FileInclusion {
                 break;
         }
 
-        imagedestroy($imageSource);
+        imagedestroy($imageSource); //trouver des alertnatives à la fonction imagedestroy (dépréciée)
         imagedestroy($newImage);
 
         return $uploadImage;

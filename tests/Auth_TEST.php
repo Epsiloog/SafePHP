@@ -31,3 +31,9 @@
             ?>
     </div>
 </div>
+
+<?php
+
+$testEssaisLogin = Auth::addIpTryLogin("127.0.0.1", 5, 15);
+
+echo Auth::displayLoginAttempts();

@@ -11,15 +11,15 @@ use SafePHP\Exceptions;
 require_once "./src/Database.php";
 
 class Auth {
-    private static int $loginAttemps = 0;
-    private static array $loginTry = [
-        "clientIp" => "",
-        array(
-            "loginTry" => "",
-            "cooldown" => ""
-        ),
-    ];
-
+    private static array $loginTry = [];
+    
+    /**
+     * Login function with form's name, name and password inputs
+     * @param string $submit Name of the form
+     * @param string $name input of the name used to login
+     * @param string $password password to authentify
+     * @return bool state of connexion (true or false)
+     */
     public static function login($submit, $name, $password){
         if (isset($submit) && $submit != null) {
             if (!CSRF::verifyCSRF()) {
@@ -35,7 +35,7 @@ class Auth {
                     $connexion = Database::connectDatabase();
                     $stmt = $connexion->prepare("SELECT (name, password) FROM users WHERE name = :name");
                     $stmt->bindValue(":name", $filterName, PDO::PARAM_STR);
-                    $inscription = $stmt->execute();
+                    $stmt->execute();
 
                     $passwordverify = password_verify($filterPassword, PASSWORD_DEFAULT);
 
@@ -69,8 +69,15 @@ class Auth {
         }
     }
 
-    public static function register($name, $email, $password)
-    {
+
+    /**
+     * Register function with name, email and password inputs
+     * @param string $name name of the user
+     * @param string $email input of the email used to register
+     * @param string $password password to authentify
+     * @return void state of connexion (string error or header to the account page)
+     */
+    public static function register($name, $email, $password){
         if (isset($email, $name, $password) && !empty($name) && !empty($email) && !empty($password)) {
 
             $filterName = Sanitize::sanitize($name, "text");
@@ -103,50 +110,101 @@ class Auth {
         }
     }
 
-    public static function logout(){ 
+
+    /**
+     * Destroy every sessions sets
+     * @return void nothing...?
+     */
+    public static function logout(){
         session_unset();
         session_destroy();
     }
 
+    /**
+     * Verify the authentification by the user
+     * @param string $sessionName the session to verify
+     * @return void return error in case of false
+     */
     public static function verifAuth($sessionName){
         if(session_status() === PHP_SESSION_NONE) {
             session_start();
         }
 
-        if (!isset($_SESSION[$sessionName])) {
+        if (!isset($_SESSION["Utilisateur"]) || $_SESSION["Utilisateur"] !== $sessionName) {
             echo Exceptions::getErreurSession();
             throw new Exception("La session n'est pas valide !", 1);
         }
     }
 
-    public static function countLoginAttemps($ipClient) {
-        if(self::$loginTry["cooldown"] === 0) {
-            if(self::$loginAttemps === 5) {
-                date_default_timezone_set("Europe/Lisbon");
-                $actualTime = strtotime(time());
-                $minusTime = strtotime("-2 hour");
-                self::$loginTry["cooldown"] = $actualTime - $minusTime;
-                return self::$loginTry["loginTry"] = 0;
-            } else {
-                    return self::$loginTry["loginTry"]++;
-            }
-        } else {
+    /**
+     * Verify the authentification by the user
+     * @param string $ipClient the IP Adresse that tried login
+     * @return bool return true if cool if dosen't have cooldown 
+     */
+    public static function countLoginAttemps($ipClient){
+        if (!self::hasIp($ipClient)) {
+            self::$loginTry[$ipClient] = [
+                "loginTry" => 0,
+                "cooldown" => 0
+            ];
+        }
+
+        if (self::$loginTry[$ipClient]["cooldown"] > time()) {
             echo Exceptions::getErreurCooldown();
+            return false;
+        }
+
+        self::$loginTry[$ipClient]["loginTry"]++;
+
+        if (self::$loginTry[$ipClient]["loginTry"] >= 5) {
+            self::$loginTry[$ipClient]["cooldown"] = time() + (2 * 3600); // + 2 hours
+            self::$loginTry[$ipClient]["loginTry"] = 0;
+            Exceptions::getErreurCooldown();
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @return array Retourne toutes les tentatives de connexion
+     */
+    public static function getHashMapTryLogin(): array {
+        return self::$loginTry;
+    }
+
+    /**
+     * @return void les informations de tentatives de connexion
+     */
+    public static function displayLoginAttempts(): void {
+        foreach (self::$loginTry as $ip => $data) {
+            echo "IP: {$ip} - Tentatives: {$data['loginTry']} - Cooldown: {$data['cooldown']}\n";
         }
     }
 
     /**
-    * Fonctions de gestion du hashmap
-    */
-    public static function getHashMapTryLogin(){
-        return self::$loginTry;
-    }
-
-    public static function hasIp(string $clientIp): bool {
+     * Verify the authentification by the user
+     * @param string $clientIp the IP adresse to look for
+     * @return bool return true if this IP adresse already tried connexion
+     */
+    public static function hasIp(string $clientIp): bool{
         return isset(self::$loginTry[$clientIp]);
     }
 
-    public static function addIpTryLogin($ip, $count, $cooldown){
-        return array_push(self::$loginTry, $ip, $count, $cooldown)  ;
+
+    /**
+     * Verify the authentification by the user
+     * @param string $ip client that try login
+     * @param int $count number of try aviable before cooldown
+     * @param string $cooldown timer of the cooldown until new try for this IP
+     * @return void nothing....for the moment
+     */
+    public static function addIpTryLogin($ip, $count, $cooldown): void {
+        self::$loginTry[$ip] = [
+            "loginTry" => $count,
+            "cooldown" => $cooldown
+        ];
+
+        return;
     }
 }
