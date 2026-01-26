@@ -2,24 +2,31 @@
 
 namespace SafePHP;
 use SessionHandler;
+use Dotenv\Dotenv;
+
 
 #===DO NOT USE IT YET ! IT'S NOT FINISHED !!! (That's why there is no doc in the readme about this class)===#
 class Session extends SessionHandler{
     private bool $RegenerateCookies = true;
     private string $encrytMethod = "AES-256-CBC";
-    private string $secretKey = "f487f3f3e6d1ebd19e1073d96a09df775b3c71deebd94fdc055db3a9cc29e5ad";
+    private string $secretKey = "";
 
     private string $iv = "XDFGTESHGJYLYFH";
 
-    public function __construct($ARegenCookie)
-    {
+    public function __construct($ARegenCookie, $TokenSecretKey){
         if ($ARegenCookie === true) {
             $RegenerateCookies = true;
-            return session_regenerate_id(true);
+            session_regenerate_id(true);
         } else {
             $RegenerateCookies = false;
-            return session_regenerate_id(false);
+            session_regenerate_id(false);
         }
+
+        $dotenv = Dotenv::createImmutable(__DIR__);
+        $dotenv->load();
+
+        self::$secretKey = $_ENV["SESSION_SECRET_KEY"];
+        return;
     }
 
     public static function disableSession($ASessionName){

@@ -1,3 +1,5 @@
 /vendor
 .tmp/*
 .vscode
+.phpdoc
+phpdocumentor.dist.xml
