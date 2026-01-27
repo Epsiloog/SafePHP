@@ -2,8 +2,13 @@
 namespace SafePHP;
 
 class Sanitize {
-    public static function sanitize(mixed $value, string $type): mixed
-    {
+    /**
+     * Sanitize an input with a type
+     * @param mixed $value value of the input once the form submitted
+     * @param string $type type of the output excpected
+     * @return mixed
+     */
+    public static function sanitize(mixed $value, string $type): mixed {
         if ($value === null) {
             return null;
         }
@@ -39,7 +44,6 @@ class Sanitize {
                 $value,
                 FILTER_VALIDATE_BOOLEAN
             ),
-
             default => null,
         };
     }

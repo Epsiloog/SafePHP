@@ -80,18 +80,18 @@ class FileInclusion {
      * @return bool
      */
     public static function reSizeImage($File) {
-        //Récupération du contenu de l'image
+        //Get the picture content
         $FileContent = file_get_contents($File);
         $SizeFile = getimagesize($FileContent);
         
-        //Récupération des dimensions de l'image
+        //Get the dimensions of the picture
         $largeur = $SizeFile[0];
         $longeur = $SizeFile[1];
 
-        //Re-création de l'image dite 'vierge' en mémoire
+        //Re-creation of the pitcure as 'virgin' in memory
         $newImage = imagecreatetruecolor($largeur / 2,  $longeur / 2);
 
-        //On adapte la création de l'image en fonction de sa signature (type d'image)
+        //We adapt the picture creation by the signature
         switch($SizeFile["mime"]){
             case "image/png":
                 $imageSource = imagecreatefrompng($File);
@@ -103,11 +103,11 @@ class FileInclusion {
                 die("Format incompatible !");
         }
 
-        //Recopie de l'image créée dans le switch sur l'image dite 'vierge'
+        //Copy the picture created in the switch to the 'virgin' one
         
         $copyImage = imagecopyresampled(
-            $newImage, //Image finale
-            $imageSource, //Image initiale
+            $newImage, //Final picture
+            $imageSource, //Starting  picture
             0,
             0,
             0,

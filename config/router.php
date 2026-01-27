@@ -55,6 +55,12 @@ if (isset($_GET['action'])) {
             $ressourceCSS = "./styles/Form_TEST.css";
             break;
 
+        case "test_acces_handler":
+            $content = "./tests/AccessHandler_TEST.php";
+            $title = "SafePHP | Test de gestion d'accès";
+            $ressourceCSS = "";
+            break;
+
         default:
             $content = "./Components/404.php";
             $title = "SafePHP | Page non trouvée !";

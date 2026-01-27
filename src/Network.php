@@ -45,6 +45,10 @@ class Network {
         return self::$BlackList = [];
     }
 
+    /**
+     * Get the client IP adress
+     * @return string IP adress
+     */
     public static function getClientIP(){
         $ip = $_SERVER['REMOTE_ADDR'] ?? 'UNKNOWN';
         if ($ip === '::1') {
@@ -53,10 +57,20 @@ class Network {
         return $ip;
     }
 
+    /**
+     * Get the IPV4 format of the ip adress
+     * @param mixed $ip IP adress
+     * @return bool
+     */
     public static function getIPv4($ip){
         return filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) !== false;
     }
 
+    /**
+     * Get the IPV6 format of the ip adress
+     * @param mixed $ip IP adress
+     * @return bool
+     */
     public static function getIPv6($ip){
         return filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false;
     }

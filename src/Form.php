@@ -5,22 +5,27 @@ use Exception;
 
 class Form {
     private array $InputConfig;
-    
-    public function __construct() {
-        throw new \Exception('Not implemented');
-    }
+
+    /**
+     * Each time you get a form, whatever it is, verify the CSRF and ... 
+     * @return void
+     */
     public static function getForm(){
         if (!CSRF::verifyCSRF()) {
             die("Jeton CSRF invalide !");
         }
     }
 
-
+    /**
+     * Renamme a file et move it on a temp folder
+     * @param int each params are the numbet of each input to create, startinf at null (0)
+     * @return void the form with the numnber of each HTML's inputs asked
+     */
     public static function createForm($NbCheckbox = null, $NbColor = null, $NbDate = null, $NbDateTimeLocal = null, $NbEmail = null, $NbFile = null, $NbImage = null, $NbMonth = null, $NbNumber = null, $NbPassword = null, $NbRadio = null, $NbRange = null, $NbSearch = null, $NbTel = null, $NbText = null, $NbTime = null, $NbUrl = null, $NbWeek = null){
 
-        CSRF::createCSRF();
+        CSRF::createCSRF(); //We add it on each form for a better security
 
-        //Liste de tous les inputs possibles avec leur quantité envoyée en paramètres
+        //Array list of every input possibles with their numbres in parameters
         $InputConfig = [
             'number_checkbox' => [
                 'type' => 'checkbox',
@@ -124,7 +129,12 @@ class Form {
         }
     }
 
-    public static function createLoginForm($FormName){
+    /**
+     * Create a classic login form
+     * @param string $FormName name of the form to chech once submitted
+     * @return void echo the whole form
+     */
+    public static function createLoginForm(string $FormName){
         echo "<form action='' method='POST'>";
         CSRF::createCSRF();
         echo " <input type='text' name='name_input' placeholder='Nom' required>
@@ -135,7 +145,12 @@ class Form {
         echo "</form>";
     }
 
-    public static function createRegisterForm($FormName){
+    /**
+     * Create a classic register form
+     * @param string $FormName name of the form to chech once submitted
+     * @return void echo the whole form
+     */
+    public static function createRegisterForm(string $FormName){
         echo "<form action='' method='POST'>";
         CSRF::createCSRF();
         echo " <input type='text' name='name_input' placeholder='Nom' required>
@@ -147,7 +162,20 @@ class Form {
         echo "</form>";
     }
 
+    /**
+     * Create a classic contact form
+     * @param string $FormName name of the form to chech once submitted
+     * @return void echo the whole form
+     */
     public static function createContactForm($FormName) {
-        
-    }
+        echo "<form action='' method='POST'>";
+        CSRF::createCSRF();
+        echo " <input type='text' name='name_input' placeholder='Nom' required>
+                <input type='mail' name='mail_input' placeholder='adresse@mail.com' required>
+                <input type='password' name='password_input' required>
+                <button type='submit' name=" . $FormName . ">
+                    S'inscrire
+                </button>";
+        echo "</form>";
+        }
 }

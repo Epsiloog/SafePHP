@@ -6,14 +6,17 @@ class Verify {
     private static array $ImagesFile = ["png", "jpeg", "jpg", "gif"]; //Liste d'extension d'image valide
     private static array $VideosFile = ["mov", "mp4", "m4a"]; //Liste d'extension vidéo valides
 
-    //Liste des types MIME autorisés
+    /**
+     * Summary of MimeTypes
+     * @var array Mime Types authorized for each "type" of file
+     */
     private static array $MimeTypes = [
         // Documents
         "pdf" => ["application/pdf"],
         "doc" => ["application/msword"],
         "docx" => [
             "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            "application/zip" // docx est techniquement un zip
+            "application/zip"
         ],
         "txt" => ["text/plain"],
         "odt" => [
@@ -25,7 +28,7 @@ class Verify {
             "application/vnd.openxmlformats-officedocument.presentationml.presentation",
             "application/zip"
         ],
-        // Images
+        // Pictures
         "png" => ["image/png"],
         "jpeg" => ["image/jpeg"],
         "jpg" => ["image/jpeg"],
@@ -37,9 +40,9 @@ class Verify {
     ];
 
     /**
-     * Donne une liste d'extension en fonction du type de fichier choisi
-     * @param string $AType Le type de fichier attendu (Documents, Images, Videos)
-     * @return array Retourne la liste d'extension de fichiers
+     * Return an extension list about the type given in parameter
+     * @param string $AType File's type expected (Documents, Pictures, Videos)
+     * @return array Return the extension list
      */
     public static function getTypeFileAviable($AType): array {
         switch ($AType) {
@@ -55,10 +58,10 @@ class Verify {
     }
 
     /**
-     * Vérifie le type de valeur envoyée
-     * @param string $input La valeur à vérifier
-     * @param string $typeToHave Le type de valeur à obtenir
-     * @return int|string retourne 1 si le type vérifié est correct, sinon faux, si le type demandé est inconnu, alors la fonction renvoie null
+     * Verify the type of the value sent
+     * @param string $input The value to verify
+     * @param string $typeToHave The type to expect
+     * @return int|string return 1 if the type verified is correct le type vérifié, else false, if the type requested is unknow, the return null
      */
     public static function verify($input, $typeToHave){
         switch ($typeToHave) {
@@ -91,9 +94,9 @@ class Verify {
 
 
     /**
-     * Vérifie l'extension de l'image envoyée
-     * @param string  $File Le type fichier à analyser
-     * @return int retourne 1 si l'extension du fichier est dans la liste des formats acceptés, sinon 0
+     * Verify the picture extension sent
+     * @param string  $File File's path to verify
+     * @return int return 1 if the file extension is in the list of expected format, else return 0
      */
     public static function verifyExtensionImage($File){
         $Extension = strtolower(pathinfo($File, PATHINFO_EXTENSION));
@@ -105,13 +108,12 @@ class Verify {
     }
 
     /**
-     * Vérifie la signature (type MIME) ET l'extension d'un fichier uploadé
-     * Principe : LISTE BLANCHE STRICTE uniquement
-     * 
-     * @param string $FileTmpName Le chemin temporaire du fichier uploadé
-     * @param string $FileName Le nom original du fichier
-     * @param string $FileType Le type de fichier attendu (Documents, Images, Videos)
-     * @return bool
+     * Verify the signature (MIME type) AND the extension of the file uploaded
+     * Principe : STRIC WHITE LIST only
+     * @param string $FileTmpName Temp file's path
+     * @param string $FileName Original name of the file
+     * @param string $FileType File type expected (Documents, Pictures, Videos)
+     * @return bool if everything is like expected, return true, else, return false
      */
     public static function verifySignatureFile($FileTmpName, $FileName, $FileType){
         if (!is_uploaded_file($FileTmpName)) {
