@@ -2,7 +2,6 @@
 .tmp/*
 .vscode
 .phpdoc
-phpdocumentor.dist.xml
 node_modules/
 config/.env
 docs/

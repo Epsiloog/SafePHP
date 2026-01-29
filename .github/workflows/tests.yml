@@ -124,7 +124,7 @@ jobs:
       if: steps.check-tests.outputs.tests_exist == 'true'
       run: |
         echo "🧪 Running PHPUnit tests..."
-        ./vendor/bin/phpunit --coverage-clover coverage.xml
+        vendor/bin/phpunit --no-coverage
         echo "✅ Tests completed"
 
     - name: Upload test coverage
