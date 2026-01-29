@@ -3,3 +3,7 @@
 .vscode
 .phpdoc
 phpdocumentor.dist.xml
+phpunit.xml
+node_modules/
+config/.env
+docs/

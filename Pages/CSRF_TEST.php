@@ -2,9 +2,6 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use SafePHP\CSRF;
-use SafePHP\Form;
-
-session_start();
 
 if (isset($_POST["text_test"])) {
     CSRF::verifyCSRF();

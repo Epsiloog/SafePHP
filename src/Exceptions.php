@@ -7,9 +7,9 @@ class Exceptions {
     private static string $ErreurExtension = "<p style='color:red; font-weight: 600;'>Erreur, le fichier envoyé n'est pas au format demandé !</p>";
     private static string $ErreurFichierVide = "<p style='color:red; font-weight: 600;'>Rien n'a été envoyé !</p>";
 
-    private static string $ErreurSession = "La session n'est pas valide !";
+    private static string $ErreurSession = "<p style='color:red; font-weight: 600;'>La session n'est pas valide !</p>";
 
-    private static string $ErreurCooldown = "Un cooldown est actif !";
+    private static string $ErreurCooldown = "<p style='color:red; font-weight: 600;'>Un cooldown est actif !</p>";
     private static string $ErreurCustom;
 
     public static function setErreurCustom($AnError) : string {

@@ -3,10 +3,6 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use SafePHP\Sanitize;
 
-if (!session_start()) {
-    session_start();
-}
-
 if (isset($_POST["testSanitize"])) {
     $FiltreText = Sanitize::sanitize($_POST["testSanitize"], "text");
 

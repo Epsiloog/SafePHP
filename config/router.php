@@ -1,90 +1,107 @@
 <?php
-if (isset($_GET['action'])) {
-    switch ($_GET['action']) {
-        case "accueil":
-            $content = "./Components/accueill.php";
-            $title = "SafePHP | Accueil";
-            $ressourceCSS = "./styles/accueil.css";
-            break;
 
-        case "test_csrf":
-            $content = "./tests/CSRF_TEST.php";
-            $title = "SafePHP | Test CSRF";
-            $ressourceCSS = "./styles/CSRF_TEST.css";
-            break;
+require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . "/../src/AccesHandler.php";
 
-        case "test_verify":
-            $content = "./tests/Verify_TEST.php";
-            $title = "SafePHP | Test Verify";
-            $ressourceCSS = "";
-            break;
+use SafePHP\SRI;
+use SafePHP\ErrorHandler;
+use SafePHP\AccessHandler;
 
-        case "test_sanitize":
-            $content = "./tests/Sanitize_TEST.php";
-            $title = "SafePHP | Test Sanitize";
-            $ressourceCSS = "";
-            break;
+$session = $_SESSION["session"];
 
-        case "test_auth":
-            $content = "./tests/Auth_TEST.php";
-            $title = "SafePHP | Test Sanitize";
-            $ressourceCSS = "";
-            break;
+$pagesFolder = "./Pages/";
+$stylesFolder = "./styles/";
+$scriptFolder = "./scripts/";
 
-        case "test_form":
-            $content = "./tests/Form_TEST.php";
-            $title = "SafePHP | Test Form";
-            $ressourceCSS = "./styles/Form_TEST.css";
-            break;
-
-        case "test_file_inclusion":
-            $content = "./tests/FileInclusion_TEST.php";
-            $title = "SafePHP | Test Form";
-            $ressourceCSS = "./styles/Form_TEST.css";
-            break;
-
-        case "test_sri":
-            $content = "./tests/Test_SRI.php";
-            $title = "SafePHP | Test SRI";
-            $ressourceCSS = "./styles/Form_TEST.css";
-            break;
-
-        case "test_network":
-            $content = "./tests/Network_TEST.php";
-            $title = "SafePHP | Test Réseau";
-            $ressourceCSS = "./styles/Form_TEST.css";
-            break;
-
-        case "test_acces_handler":
-            $content = "./tests/AccessHandler_TEST.php";
-            $title = "SafePHP | Test de gestion d'accès";
-            $ressourceCSS = "";
-            break;
-
-        default:
-            $content = "./Components/404.php";
-            $title = "SafePHP | Page non trouvée !";
-            $ressourceCSS = "./styles/404.css";
-            break;
-    }
-} else {
-    $content = "./Components/accueill.php";
-    $title = "SafePHP | Accueil";
-    $ressourceCSS = "./styles/accueil.css";
-}
-
-/* ===============LISTE BLANCHE POUR LE ROUTEUR PHP======================
-$pages_whitelist = array(
-    '1' => 'home.php',
-    '2' => 'account.php',
-    '3' => 'commands.php'
+$whiteListOfTitle = array(
+    "0" => "",
+    "1" => "",
+    "2" => "",
+    "3" => "",
+    "4" => "",
+    "5" => "",
+    "6" => "",
+    "7" => "",
+    "8" => "",
+    "9" => "",
 );
 
-$page = $_GET['page'];
-if (array_key_exists($page, $pages_whitelist)) {
-    include $pages_whitelist[$page];
+$whiteListAccesPages = array(
+    "0" => 0,
+    "1" => 0,
+    "2" => 0,
+    "3" => 0,
+    "4" => 0,
+    "5" => 0,
+    "6" => 0,
+    "7" => 0,
+    "8" => 5,
+    "9" => 0,
+);
+
+$whiteListOfPages = array(
+    "0" => "/../Components/accueill.php",
+    "1" => "CSRF_TEST.php",
+    "2" => "Verify_TEST.php",
+    "3" => "Sanitize_TEST.php",
+    "4" => "Auth_TEST.php",
+    "5" => "Form_TEST.php",
+    "6" => "FileInclusion_TEST.php",
+    "7" => "Test_SRI.php",
+    "8" => "Network_TEST.php",
+    "9" => "AccessHandler_TEST.php",
+);
+
+$whiteListeOfCSS = array(
+    "0" => "accueil.css",
+    "1" => "CSRF_TEST.css",
+    "2" => "",
+    "3" => "",
+    "4" => "",
+    "5" => "Form_TEST.css",
+    "6" => "Form_TEST.css",
+    "7" => "Form_TEST.css",
+    "8" => "Form_TEST.css",
+    "9" => "Form_TEST.css",
+);
+
+$whiteListeOfJS = array(
+    "0" => "",
+    "1" => "",
+    "2" => "",
+    "3" => "",
+    "4" => "",
+    "5" => "",
+    "6" => "",
+    "7" => "",
+    "8" => "",
+    "9" => "",
+);
+
+if (isset($_GET['action'])) {
+    $page = $_GET["action"];
+    if (array_key_exists($page, $whiteListOfPages)) {
+        AccessHandler::verifyAccess($session, $whiteListAccesPages[$page]);
+
+        $content = $pagesFolder . $whiteListOfPages[$page];
+        $title = $whiteListOfTitle[$page];
+
+        if($whiteListeOfCSS[$page] === "") {
+            $fileCSS = "default.css";
+            SRI::createSRI("css", $stylesFolder . $fileCSS);
+        } else {
+            $ressourceCSS = SRI::createSRI( "css", $stylesFolder . $whiteListeOfCSS[$page]);
+        }
+
+        if ($whiteListeOfJS[$page] === "") {
+            $fileJS = "default.js";
+            $ressourceJS = SRI::createSRI("js", $scriptFolder . $fileJS);
+        } else {
+            $ressourceJS = SRI::createSRI("js", $scriptFolder . $whiteListeOfJS[$page]);
+        }
+
+
+    } else {
+        new ErrorHandler(404, "404.php");
+    }
 }
-else {
-    erreur
-}
-*/

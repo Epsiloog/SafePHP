@@ -3,35 +3,76 @@
 namespace SafePHP;
 use SessionHandler;
 use Dotenv\Dotenv;
+use Exception;
 
 
 #===DO NOT USE IT YET ! IT'S NOT FINISHED !!! (That's why there is no doc in the readme about this class)===#
 class Session extends SessionHandler{
-    private bool $RegenerateCookies = true;
-    private string $encrytMethod = "AES-256-CBC";
-    private string $secretKey = "";
-    private string $iv = "";
+    private string $encryptMethod = "AES-256-CBC";
+    private string $secretKey ;
 
     /**
      * Construct the Session object with env key a secrets key
      * @param bool $ARegenCookie set if the constructor must regenerate the session's id or not
      * @return void
      */
-    public function __construct($ARegenCookie){
-        if ($ARegenCookie === true) {
-            self::$RegenerateCookies = true;
-            session_regenerate_id(true);
-        } else {
-            self::$RegenerateCookies = false;
-            session_regenerate_id(false);
-        }
-
-        $dotenv = Dotenv::createImmutable(__DIR__);
+    public function __construct($userId, $userName, $userAccessCode){
+        $dotenv = Dotenv::createImmutable( __DIR__ . "../../config/");
         $dotenv->load();
 
-        self::$secretKey = $_ENV["SESSION_SECRET_KEY"];
-        self::$secretKey = $_ENV["SESSION_IV"];
-        return;
+        $this->secretKey = $_ENV["SESSION_SECRET_KEY"];
+        return $this->createSession($userId, $userName, $userAccessCode);
+    }
+
+    public function createSession($userId, $userName, $userAccessCode){
+        try {
+            // Session configuration
+            session_set_cookie_params([
+                'lifetime' => 14400, // 4 hours
+                'path' => '/',
+                'domain' => $_SERVER['HTTP_HOST'] ?? '',
+                'secure' => true, // HTTPS only
+                'httponly' => true,
+                'samesite' => 'Strict'
+            ]);
+
+            // Session name
+            session_name('SafePHPSESSION');
+
+            session_start();
+
+            // Regenerate id session
+            session_regenerate_id(true);
+
+            // Store user's data in session
+            $_SESSION['user_id'] = $this->encryptSessionId($userId);
+            $_SESSION['user_name'] = $userName;
+            $_SESSION['user_access_code'] = $userAccessCode;
+            $_SESSION['created_at'] = time();
+            $_SESSION['last_regeneration'] = time();
+            $_SESSION['ip_address'] = $_SERVER['REMOTE_ADDR'] ?? '';
+            $_SESSION['user_agent'] = $_SERVER['HTTP_USER_AGENT'] ?? '';
+
+            // Headers de sécurité supplémentaires
+            if (!headers_sent()) {
+                header('X-Frame-Options: DENY');
+                header('X-Content-Type-Options: nosniff');
+                header('X-XSS-Protection: 1; mode=block');
+                header('Referrer-Policy: strict-origin-when-cross-origin');
+                header('Permissions-Policy: geolocation=(), microphone=(), camera=()');
+
+                // Cache-Control pour les pages avec session
+                header('Cache-Control: no-cache, no-store, must-revalidate, private');
+                header('Pragma: no-cache');
+                header('Expires: 0');
+            }
+
+            return true;
+
+        } catch (Exception $e) {
+            error_log("Erreur création session: " . $e->getMessage());
+            return false;
+        }
     }
 
     /**
@@ -39,8 +80,8 @@ class Session extends SessionHandler{
      * @param string $ASessionName the session to disable
      * @return void Nothing...?
      */
-    public static function disableSession($ASessionName){
-        unset($ASessionName);
+    public static function disableSession(){
+        unset($_SESSION);
     }
 
     /**
@@ -57,22 +98,34 @@ class Session extends SessionHandler{
      * @return string Return the key encreypted
      */
     public function encryptSessionId($id) {
-        $encryptedKey = hash('sha256', self::$secretKey);
-        $iv = substr(hash('sha256', self::$iv), 0, 16);
-        $encryptedSessionId = openssl_encrypt($id, self::$encrytMethod, $encryptedKey, 0, $iv);
-        $encryptedSessionId = base64_encode($encryptedSessionId);
-        return $encryptedKey;
+        $encryptedKey = hash('sha256', $this->secretKey);
+        $createdIV = openssl_random_pseudo_bytes(16);
+        $iv = substr(hash('sha256', $createdIV), 0, 16);
+        $encryptedSessionId = openssl_encrypt($id, $this->encryptMethod, $encryptedKey, OPENSSL_RAW_DATA, $iv);
+        $encryptedSessionId = base64_encode($iv . $encryptedSessionId);
+        return $encryptedSessionId;
     }
 
     /** Dencrypt the session's id
      * @param int $id user iditifiant (get it in session)
      * @return string Return the key decreypted
      */
-    public function decryptSessionId($userId) {
-        $userId = base64_encode($userId);
-        $encodedKey = hash("sha256", self::$secretKey);
-        $iv = substr(hash("sha256", self::$iv), 0, 16);
-        $id = openssl_decrypt($userId, self::$encrytMethod, $encodedKey, 0, $iv);
-        return $id;
+    public function decryptSessionId($data){
+        $data = base64_decode($data);
+        if (strlen($data) < 16) {
+            return false; //Invalid data
+        }
+        $iv = substr($data, 0, 16); // Get the initialisation vector
+        $encryptedSessionId = substr($data, 16); //Get encrypted text
+        $encodedKey = hash("sha256", $this->secretKey);
+        return openssl_decrypt($encryptedSessionId, $this->encryptMethod, $encodedKey, OPENSSL_RAW_DATA, $iv);
+    }
+
+    public function getInfosSession(){
+        if (isset($_SESSION)) {
+            return $this->decryptSessionId($_SESSION["user_id"]);
+        } else {
+            return "Aucune session créée !";
+        }
     }
 }

@@ -2,7 +2,6 @@
 namespace SafePHP;
 
 use Error;
-use Exception;
 use PDO;
 use SafePHP\CSRF;
 use SafePHP\Network;
@@ -47,12 +46,7 @@ class Auth {
 
                         if ($unUtilisateur) {
                             if (password_verify($password, $unUtilisateur['mot_de_passe'])) {
-                                session_start();
-                                $_SESSION["Utilisateur"] = [
-                                    "ID" => $unUtilisateur['id'],
-                                    "Nom" => $unUtilisateur['name'],
-                                    "Adresse_Mail" => $unUtilisateur['email'],
-                                ];
+                                new Session($unUtilisateur["idCompte"], $unUtilisateur["name"], $unUtilisateur["userAccess"]);
                                 header("Location: ./index.php?action=accueilUtilisateur");
                                 exit();
                             } else {
@@ -97,11 +91,7 @@ class Auth {
                 session_start();
                 $idCompte = $connexion->lastInsertId();
 
-                $_SESSION["Utilisateur"] = [
-                    "ID" => $idCompte,
-                    "Nom" => $filterName,
-                    "Adresse_Mail" => $filterEmail,
-                ];
+                new Session($idCompte, $name, 0);
                 header("Location: ./index.php?action=accueilUtilisateur");
                 exit();
             } else {
@@ -125,14 +115,12 @@ class Auth {
      * @param string $sessionName the session to verify
      * @return void return error in case of false
      */
-    public static function verifAuth($sessionName){
-        if(session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-
-        if (!isset($_SESSION["Utilisateur"]) || $_SESSION["Utilisateur"] !== $sessionName) {
+    public static function verifAuth($sessionId){
+        if ($_SESSION["user_id"] !== $sessionId) {
             echo Exceptions::getErreurSession();
-            throw new Exception("La session n'est pas valide !", 1);
+            return false;
+        } else {
+            return true;
         }
     }
 
