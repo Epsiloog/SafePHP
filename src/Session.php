@@ -121,11 +121,15 @@ class Session extends SessionHandler{
         return openssl_decrypt($encryptedSessionId, $this->encryptMethod, $encodedKey, OPENSSL_RAW_DATA, $iv);
     }
 
+    /**
+     * Get the id of a session
+     * @return string session id or an error if session is not set (user not connected)
+     */
     public function getInfosSession(){
         if (isset($_SESSION)) {
             return $this->decryptSessionId($_SESSION["user_id"]);
         } else {
-            return "Aucune session créée !";
+            return "No session created !";
         }
     }
 }
