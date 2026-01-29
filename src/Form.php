@@ -7,8 +7,8 @@ class Form {
     private array $InputConfig;
 
     /**
-     * Each time you get a form, whatever it is, verify the CSRF and ... 
-     * @return void
+     * Each time you get a form, whatever it is, verify the CSRF and the posted values
+     * @return void function not finished yet
      */
     public static function getForm(){
         if (!CSRF::verifyCSRF()) {

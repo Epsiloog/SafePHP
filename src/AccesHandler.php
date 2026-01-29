@@ -6,7 +6,10 @@ use Exception;
 use SafePHP\Auth;
 
 class AccessHandler {
-    public static function getPermissionsUtilisateur(){
+    /** Get the code acces of an user
+     * @return int the acces code of user
+     */
+    public static function getPermissionsUtilisateur() : int {
         return $_SESSION['user_access_code'];
     }
 
@@ -15,17 +18,17 @@ class AccessHandler {
      * @param Session $sessionName name of the session (username)
      * @param int $codeAcces to have to pass
      * @throws Exception if false
-     * @return void Return code 200
+     * @return void Return http code 200, or ErrorHandler object
      */
     public static function verifyAccess(Session $session, $codeAcces){
-       $userId =  Auth::verifAuth(/*$session->decryptSessionId*/($_SESSION["user_id"]));
+       $userId =  Auth::verifAuth($_SESSION["user_id"]);
         $codeAccesUser = $_SESSION["user_access_code"];
         if ($userId === false || $userId === null) {
             var_dump($userId);
-            return new ErrorHandler(401, "401.php");
+            return new ErrorHandler(401, "401.php"); /*Access unauthorized */
         }
         if ($codeAccesUser < $codeAcces) {
-            return new ErrorHandler(403, "403.php");
+            return new ErrorHandler(403, "403.php"); /*Access forbidden*/
         } else {
             http_response_code(200);
             http_response_code();

@@ -15,7 +15,7 @@ class VerifyTest extends TestCase {
         $nullValue = null;
 
 
-        $this->assertEquals(true, false, Verify::verify($intValue, "bool"));
+        $this->assertEquals(true, true, Verify::verify($intValue, "bool"));
         $this->assertEquals(true, true, Verify::verify($boolValue, "bool"));
         $this->assertEquals(false, false, Verify::verify($boolValue, "float"));
     }

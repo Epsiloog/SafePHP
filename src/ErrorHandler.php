@@ -10,8 +10,8 @@ class ErrorHandler {
     private string $errorHandlerDir = __DIR__ . "/ErrorHandler/";
 
     /**
-     * Create a response  on client and server side
-     * @param int $errorCode codeto give as http response
+     * Create a response on client and server side
+     * @param int $errorCode code to give as http response
      * @param string $fileErrorInclusion path of the error file on the folder defined by $accessHandlerDir
      * @return void
      */

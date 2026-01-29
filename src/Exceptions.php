@@ -3,15 +3,41 @@
 namespace SafePHP;
 
 class Exceptions {
-    private static string $ErreurSignature = "<p style='color:red; font-weight: 600;'>Erreur, le fichier envoyé n'est pas au type demandé pour ";
-    private static string $ErreurExtension = "<p style='color:red; font-weight: 600;'>Erreur, le fichier envoyé n'est pas au format demandé !</p>";
-    private static string $ErreurFichierVide = "<p style='color:red; font-weight: 600;'>Rien n'a été envoyé !</p>";
+    /**
+     * @var string File signature error
+     */
+    private static string $ErreurSignature = "<p style='color:red; font-weight: 600;'>Error, the file sent is not on the right type for : ";
 
-    private static string $ErreurSession = "<p style='color:red; font-weight: 600;'>La session n'est pas valide !</p>";
+    /**
+     * @var string Extension file error
+     */
+    private static string $ErreurExtension = "<p style='color:red; font-weight: 600;'>Error, the file sent is not on the asked type !</p>";
 
-    private static string $ErreurCooldown = "<p style='color:red; font-weight: 600;'>Un cooldown est actif !</p>";
+    /**
+     * @var string Empty file error
+     */
+    private static string $ErreurFichierVide = "<p style='color:red; font-weight: 600;'>Nothing has been sent !</p>";
+
+    /**
+     * @var string Invalid session error
+     */
+    private static string $ErreurSession = "<p style='color:red; font-weight: 600;'>The session is not valid !</p>";
+
+    /**
+     * @var string Cooldown login error
+     */
+    private static string $ErreurCooldown = "<p style='color:red; font-weight: 600;'>A cooldown is active!</p>";
+
+    /**
+     * @var string Error set by the method setErreurCustom($aCustomError)
+     */
     private static string $ErreurCustom;
 
+    /**
+     * Create a custom error
+     * @param string $AnError Custom message
+     * @return string The output of the custom error
+     */
     public static function setErreurCustom($AnError) : string {
         return self::$ErreurCustom = $AnError();
     }
@@ -20,18 +46,34 @@ class Exceptions {
         return self::$ErreurSignature;
     }
 
+    /**
+     *  Get the extension file error
+     * @return string The extension file error
+     */
     public static function getErreurExtension(): string {
         return self::$ErreurExtension;
     }
 
+    /**
+     *  Get the empty file error
+     * @return string The empty file error
+     */
     public static function getErreurFichierVide(): string {
         return self::$ErreurFichierVide;
     }
 
+    /**
+     * Get the session error
+     * @return string The session error
+     */
     public static function getErreurSession(): string{
         return self::$ErreurSession;
     }
 
+    /**
+     * Get the cooldown error
+     * @return string The cooldown error
+     */
     public static function getErreurCooldown(): string{
         return self::$ErreurCooldown;
     }
