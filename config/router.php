@@ -24,6 +24,8 @@ $whiteListOfTitle = array(
     "7" => "",
     "8" => "",
     "9" => "",
+    "10" => "",
+    "11" => "",
 );
 
 $whiteListAccesPages = array(
@@ -37,6 +39,8 @@ $whiteListAccesPages = array(
     "7" => 0,
     "8" => 5,
     "9" => 0,
+    "10" => 0,
+    "11" => 4,
 );
 
 $whiteListOfPages = array(
@@ -50,6 +54,8 @@ $whiteListOfPages = array(
     "7" => "Test_SRI.php",
     "8" => "Network_TEST.php",
     "9" => "AccessHandler_TEST.php",
+    "10" => "Router_TEST.php",
+    "11" => "Logs_TEST.php",
 );
 
 $whiteListeOfCSS = array(
@@ -63,6 +69,8 @@ $whiteListeOfCSS = array(
     "7" => "Form_TEST.css",
     "8" => "Form_TEST.css",
     "9" => "Form_TEST.css",
+    "10" => "Form_TEST.css",
+    "11" => "Form_TEST.css",
 );
 
 $whiteListeOfJS = array(
@@ -76,8 +84,14 @@ $whiteListeOfJS = array(
     "7" => "",
     "8" => "",
     "9" => "",
+    "10" => "",
+    "11" => "",
 );
 
+
+/***
+ * A mettre dans une fonction de la classe Router
+ */
 if (isset($_GET['action'])) {
     $page = $_GET["action"];
     if (array_key_exists($page, $whiteListOfPages)) {
@@ -99,7 +113,6 @@ if (isset($_GET['action'])) {
         } else {
             $ressourceJS = SRI::createSRI("js", $scriptFolder . $whiteListeOfJS[$page]);
         }
-
 
     } else {
         new ErrorHandler(404, "404.php");

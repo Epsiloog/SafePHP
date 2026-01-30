@@ -3,7 +3,11 @@
 use PHPUnit\Framework\TestCase;
 use SafePHP\Verify;
 
-class VerifyTest extends TestCase {
+class VerifyTest extends TestCase
+{
+    /**
+     * @test
+     */
     public function testVerify(){
         $boolValue = false;
         $intValue = 500;
@@ -18,5 +22,24 @@ class VerifyTest extends TestCase {
         $this->assertEquals(true, true, Verify::verify($intValue, "bool"));
         $this->assertEquals(true, true, Verify::verify($boolValue, "bool"));
         $this->assertEquals(false, false, Verify::verify($boolValue, "float"));
+        $this->assertEquals(false, false, Verify::verify($floatValue, "string"));
+        $this->assertEquals(true, true, Verify::verify($doubleValue, "double"));
+        $this->assertEquals(true, true, Verify::verify($objectValue, "object"));
+        $this->assertEquals(false, false, Verify::verify($arrayValue, "int"));
+        $this->assertEquals(true, true, Verify::verify($stringValue, "string"));
+
+    }
+
+    /**
+     * @test
+     */
+    public function testVerifyExtensionImage(){
+        $File = "something.jpeg";
+        $FileBis = "something.bin";
+        $FileBisBis = "something.jpeg";
+
+        $this->assertEquals(1, 1, Verify::verifyExtensionImage($File));
+        $this->assertEquals(0, 0, Verify::verifyExtensionImage($FileBis));
+        $this->assertEquals(1, 1, Verify::verifyExtensionImage($FileBisBis));
     }
 }

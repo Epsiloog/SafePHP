@@ -2,7 +2,7 @@
 
 namespace SafePHP;
 use SafePHP\Sanitize;
-use Dotenv\Dotenv;
+use SafePHP\Secret;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -36,8 +36,8 @@ class Mail {
         $mail = new PHPMailer(true);
         try {
             /*Get .env file with keys*/
-            $dotenv = Dotenv::createImmutable(__DIR__);
-            $dotenv->load();
+            $secret = new Secret(__DIR__);
+            $secret->getEnv();
 
             /* Server settings*/
             $mail->isSMTP();

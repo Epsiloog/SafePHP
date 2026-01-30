@@ -25,6 +25,7 @@
       <a class="navbar-item" href="index.php?action=7">Test SRI</a>
       <a class="navbar-item" href="index.php?action=8">Test Réseau</a>
       <a class="navbar-item" href="index.php?action=9">Test AccesHandler</a>
+      <a class="navbar-item" href="index.php?action=10">Test Router</a>
     </div>
   </div>
 </div>

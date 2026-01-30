@@ -6,11 +6,19 @@ use PDO;
 use SafePHP\CSRF;
 use SafePHP\Network;
 use SafePHP\Exceptions;
+use SafePHP\Logs;
 
 require_once "./src/Database.php";
 
 class Auth {
     private static array $loginTry = [];
+
+
+    public function __construct(){
+        $successLogin = "Successfull login from " . Network::getClientIP();
+        $errorLogin = "Failed login from " . Network::getClientIP();
+        new Logs(__DIR__ . "../SafePHP-Logs/auth.logs", "Authentification try", $successLogin, $errorLogin);
+    }
     
     /**
      * Login function with form's name, name and password inputs
@@ -19,7 +27,7 @@ class Auth {
      * @param string $password password to authentify
      * @return bool state of connexion (true or false)
      */
-    public static function login($submit, $name, $password){
+    public function login($submit, $name, $password){
         if (isset($submit) && $submit != null) {
             if (!CSRF::verifyCSRF()) {
                 die("Jeton CSRF invalide !");
@@ -71,7 +79,7 @@ class Auth {
      * @param string $password password to authentify
      * @return void state of connexion (string error or header to the account page)
      */
-    public static function register($name, $email, $password){
+    public function register($name, $email, $password){
         if (isset($email, $name, $password) && !empty($name) && !empty($email) && !empty($password)) {
 
             $filterName = Sanitize::sanitize($name, "text");

@@ -29,6 +29,7 @@ Header edit Set-Cookie ^(PHPSESSID=.*)$ "$1; HttpOnly; Secure; SameSite=Strict"
  Header unset X-Spip-Cache
 </IfModule>
 
+#Cacher et refuser l'accès aux fichiers de configuration php
 <Files ".user.ini">
     Require all denied
     ErrorDocument 

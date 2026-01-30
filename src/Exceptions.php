@@ -39,7 +39,7 @@ class Exceptions {
      * @return string The output of the custom error
      */
     public static function setErreurCustom($AnError) : string {
-        return self::$ErreurCustom = $AnError();
+        return self::$ErreurCustom = $AnError;
     }
 
     public static function getErreurSignature() : string {

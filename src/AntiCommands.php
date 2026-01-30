@@ -8,7 +8,7 @@ class AntiCommands {
      * @return string the escaped string
      */
     public static function deleteShellArgs($Input){
-        return $filterAntiCommand = escapeshellarg($Input);
+        return escapeshellarg($Input);
     }
 
     /**
@@ -16,6 +16,6 @@ class AntiCommands {
      * @return string the escaped string
      */
     public static function deleteShellCmd($Input){
-        return $filterAntiCommand = escapeshellcmd($Input);
+        return escapeshellcmd($Input);
     }
 }

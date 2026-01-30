@@ -1,5 +1,4 @@
-# [SafePHP](#safephp)  (Version Alpha) ![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white)
-## (An english version is in work) 
+# [SafePHP](#safephp) ![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white)
 <a href="#sommaire"><img src="./Components/Img/fra.svg" style="width:40px; height:auto;"></a> <a href="#summary"><img src="./Components/Img/eng.svg" style="width:40px; height:auto;"></a>
 ## Sommaire
 

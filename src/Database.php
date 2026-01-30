@@ -2,7 +2,7 @@
 namespace SafePHP;
 use PDO;
 use PDOException;
-use Dotenv\Dotenv;
+use SafePHP\Secret;
 class Database {
 
     /**
@@ -10,8 +10,8 @@ class Database {
      * @return PDO object to manipulate SQL
      */
     public static function connectDatabase() {
-        $dotenv = Dotenv::createImmutable(__DIR__);
-        $dotenv->load();
+        $secret = new Secret(__DIR__);
+        $secret->getEnv();
         $host = $_ENV["HOST"];
         $port = $_ENV["PORT"];
         $dbname = $_ENV["DB_NAME"];

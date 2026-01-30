@@ -2,7 +2,6 @@
 
 namespace SafePHP;
 use SessionHandler;
-use Dotenv\Dotenv;
 use Exception;
 
 
@@ -17,10 +16,9 @@ class Session extends SessionHandler{
      * @return void
      */
     public function __construct($userId, $userName, $userAccessCode){
-        $dotenv = Dotenv::createImmutable( __DIR__ . "../../config/");
-        $dotenv->load();
-
-        $this->secretKey = $_ENV["SESSION_SECRET_KEY"];
+        $secret = new Secret(__DIR__ . "../../config/");
+        $secret->getEnv();
+        $this->secretKey =  $_ENV["SESSION_SECRET_KEY"];
         return $this->createSession($userId, $userName, $userAccessCode);
     }
 
