@@ -124,8 +124,13 @@ composer require thomas-thony/safephp
 ```
 Don't forget to install all dependences linked to the library to ensure the good utility : 
 
+Windows :
 ```php
-composer update || composer install
+composer update; if ($?) { composer install }
+```
+Linux :
+```php
+composer update && composer install
 ```
 
 ### Global configuration
